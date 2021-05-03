@@ -5,5 +5,4 @@ import org.junit.jupiter.api.DisplayName;
 @DisplayName("Example")
 class TestExample {
 
-  
 }

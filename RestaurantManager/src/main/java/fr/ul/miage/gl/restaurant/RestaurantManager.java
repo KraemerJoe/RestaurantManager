@@ -18,6 +18,8 @@ public class RestaurantManager {
 			for (Category category : c) {
 				System.out.println(category.getName());
 			}
+		
+
 		}else {
 			System.err.println("DB Not Connected, exit.");
 			System.exit(0);
