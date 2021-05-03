@@ -1,4 +1,4 @@
-package fr.ul.miage.gl.restaurant.pojo;
+package fr.ul.miage.gl.restaurant.pojo.orders;
 
 import java.sql.Date;
 
@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 
 @Entity
 @Table(name = "\"SESSION_CLIENT\"")

@@ -1,4 +1,4 @@
-package fr.ul.miage.gl.restaurant.pojo;
+package fr.ul.miage.gl.restaurant.pojo.staff;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

@@ -1,4 +1,4 @@
-package fr.ul.miage.gl.restaurant.pojo;
+package fr.ul.miage.gl.restaurant.pojo.orders;
 
 import java.sql.Date;
 

@@ -1,9 +1,11 @@
-package fr.ul.miage.gl.restaurant.pojo;
+package fr.ul.miage.gl.restaurant.pojo.tables;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
 
 @Entity
 @Table(name = "\"TABLE_ASSIGNMENT\"")

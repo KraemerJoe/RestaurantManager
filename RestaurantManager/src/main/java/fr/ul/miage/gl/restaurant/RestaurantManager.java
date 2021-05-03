@@ -3,7 +3,7 @@ package fr.ul.miage.gl.restaurant;
 import java.util.List;
 
 import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
-import fr.ul.miage.gl.restaurant.pojo.Category;
+import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
 
 public class RestaurantManager {
 
