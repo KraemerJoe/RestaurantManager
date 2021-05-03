@@ -1,6 +1,8 @@
 package fr.ul.miage.gl.restaurant.pojo.staff;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -25,10 +27,10 @@ public class Staff {
 	@NotNull
 	private String password;
 
-	@NotNull
-	private String role;
+	@Enumerated(EnumType.STRING)
+	private EnumRoles role;
 
-	public Staff(String name, String surname, String login, String password, String role) {
+	public Staff(String name, String surname, String login, String password, EnumRoles role) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -82,11 +84,11 @@ public class Staff {
 		this.password = password;
 	}
 
-	public String getRole() {
+	public EnumRoles getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(EnumRoles role) {
 		this.role = role;
 	}
 
