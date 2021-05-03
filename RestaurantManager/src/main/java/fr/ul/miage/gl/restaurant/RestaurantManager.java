@@ -1,8 +1,9 @@
 package fr.ul.miage.gl.restaurant;
 
 import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
+import fr.ul.miage.gl.restaurant.managers.MenuManager;
+import fr.ul.miage.gl.restaurant.managers.SessionManager;
 import fr.ul.miage.gl.restaurant.menus.MenuLogin;
-import fr.ul.miage.gl.restaurant.menus.MenuManager;
 
 public class RestaurantManager {
 
@@ -29,6 +30,7 @@ public class RestaurantManager {
 	private static void initManagers() {
 		new EbeanManager();
 		new MenuManager();
+		new SessionManager();
 	}
 
 }
