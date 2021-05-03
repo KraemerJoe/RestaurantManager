@@ -1,6 +1,9 @@
-package fr.ul.miage.gl.restaurant.menus;
+package fr.ul.miage.gl.restaurant.managers;
 
 import java.util.ArrayList;
+
+import fr.ul.miage.gl.restaurant.menus.Menu;
+import fr.ul.miage.gl.restaurant.menus.MenuLogin;
 
 public class MenuManager {
 	
