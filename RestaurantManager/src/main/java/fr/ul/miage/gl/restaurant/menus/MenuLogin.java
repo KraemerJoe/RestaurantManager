@@ -38,6 +38,7 @@ public class MenuLogin extends Menu {
 			}	
 			break;
 		case 2:
+			SessionManager.getInstance().disconnect();
 			System.out.println("You have chosen to disconnect.");
 			break;
 		}
