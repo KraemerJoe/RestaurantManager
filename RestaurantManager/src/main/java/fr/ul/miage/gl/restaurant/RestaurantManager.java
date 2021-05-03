@@ -1,29 +1,25 @@
 package fr.ul.miage.gl.restaurant;
 
-import java.util.List;
-
 import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
-import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
+import fr.ul.miage.gl.restaurant.menus.MenuLogin;
+import fr.ul.miage.gl.restaurant.menus.MenuManager;
 
 public class RestaurantManager {
 
 	public static void main(String[] args) {
-		System.out.println("Restaurant Manager Sprint 2");
+		
 		initManagers();
 		createDBConnection();
 		
 		if(EbeanManager.getInstance().getDb() != null) {
 			System.out.println("DB Connected !");
-			List<Category> c = EbeanManager.getInstance().getDb().find(Category.class).findList();
-			for (Category category : c) {
-				System.out.println(category.getName());
-			}
-		
-
 		}else {
 			System.err.println("DB Not Connected, exit.");
 			System.exit(0);
 		}
+		
+		MenuLogin.getInstance().show();
+		
 	}
 
 	private static void createDBConnection() {
@@ -32,6 +28,7 @@ public class RestaurantManager {
 
 	private static void initManagers() {
 		new EbeanManager();
+		new MenuManager();
 	}
 
 }

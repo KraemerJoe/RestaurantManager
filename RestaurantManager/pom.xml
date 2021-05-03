@@ -23,11 +23,11 @@
 	</properties>
 	<dependencies>
 
-		<dependency>
-			<groupId>org.avaje.composite</groupId>
-			<artifactId>logback</artifactId>
-			<version>1.1</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.avaje.composite</groupId> -->
+<!-- 			<artifactId>logback</artifactId> -->
+<!-- 			<version>1.1</version> -->
+<!-- 		</dependency> -->
 
 		<!-- Normally you only have the 1 JDBC driver but we are running and testing 
 			this against postgres, sqlserver and mysql -->
@@ -105,11 +105,11 @@
 			<version>1.7.30</version>
 		</dependency>
 
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>ch.qos.logback</groupId> -->
+<!-- 			<artifactId>logback-classic</artifactId> -->
+<!-- 			<version>1.2.3</version> -->
+<!-- 		</dependency> -->
 
 		<dependency>
 			<groupId>io.ebean</groupId>
