@@ -14,6 +14,10 @@ public class SessionManager {
 	public void login(Staff staff) {
 		this.account = staff;
 	}
+	
+	public void disconnect() {
+		this.account = null;
+	}
 
 	public Staff getAccount() {
 		return account;
