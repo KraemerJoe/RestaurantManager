@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import fr.ul.miage.gl.restaurant.managers.SessionManager;
+
 public abstract class Menu implements InterfaceMenu {
 
 	protected String name;
@@ -26,6 +28,8 @@ public abstract class Menu implements InterfaceMenu {
 				System.out.println("[" + i + "] " + itemMenu.getDescription() + " - " + itemMenu.getDetail());
 				i++;
 			}
+			if(!(this instanceof MenuLogin))
+			System.out.println("[" + (i) + "] " + "Quit - Disconnect");
 			footer();
 			try {
 				Scanner input = new Scanner(System.in);
@@ -34,8 +38,14 @@ public abstract class Menu implements InterfaceMenu {
 				choice = -1;
 				System.err.println("Une erreur est survenue dans votre insertion !");
 			}
-		} while (choice <= 0 || choice >= (itemList.size() + 1));
+		} while (choice <= 0 || choice >= (itemList.size() + ((this instanceof MenuLogin) ? 2 : 3) ));
+		if(!(this instanceof MenuLogin) && choice == itemList.size()+1) {
+			SessionManager.getInstance().disconnect();
+			System.out.println("Disconnected.");
+			MenuLogin.getInstance().show();
+		}
 		executeChoice(choice);
+		show();
 	}
 
 	public void title() {
