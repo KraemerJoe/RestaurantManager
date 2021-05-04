@@ -28,7 +28,7 @@ public class DirectorMenu extends Menu {
 			ArrayList<RawMaterial> materials = new ArrayList<RawMaterial>();
 			materials.addAll(EbeanManager.getInstance().getDb().find(RawMaterial.class).findList());
 			for (RawMaterial rawMaterial : materials) {
-				System.out.println(rawMaterial + " - [" + rawMaterial.getStock() + "]");			}
+				System.out.println("- " + rawMaterial.getName() + " [" + rawMaterial.getStock() + "]");			}
 		}
 	}
 	
