@@ -38,7 +38,7 @@ public abstract class Menu implements InterfaceMenu {
 				choice = -1;
 				System.err.println("Une erreur est survenue dans votre insertion !");
 			}
-		} while (choice <= 1 || choice >= (itemList.size() + ((this instanceof MenuLogin) ? 1 : 2) ));
+		} while (choice <= 0 || choice >= (itemList.size() + ((this instanceof MenuLogin) ? 2 : 3) ));
 		if(!(this instanceof MenuLogin) && choice == itemList.size()+1) {
 			SessionManager.getInstance().disconnect();
 			System.out.println("Disconnected.");
