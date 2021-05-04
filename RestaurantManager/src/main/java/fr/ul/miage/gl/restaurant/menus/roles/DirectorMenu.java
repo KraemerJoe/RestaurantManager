@@ -32,15 +32,7 @@ public class DirectorMenu extends Menu {
 		}
 	}
 	
-	public static DirectorMenu getInstance() {
-		if (instance == null)
-			instance = new DirectorMenu();
-		return instance;
-	}
 
-	public static void setInstance(DirectorMenu instance) {
-		DirectorMenu.instance = instance;
-	}
 	
 	public static DirectorMenu getInstance() {
 		if (instance == null)
