@@ -20,7 +20,7 @@ public class MenuUtil {
 				Scanner input = new Scanner(System.in);
 				choice = input.nextLine();
 			} catch (InputMismatchException e) {
-				System.err.println("Une erreur est survenue dans votre entree !");
+				System.err.println("An error happend with your entry !");
 			}
 		}
 		return choice;
