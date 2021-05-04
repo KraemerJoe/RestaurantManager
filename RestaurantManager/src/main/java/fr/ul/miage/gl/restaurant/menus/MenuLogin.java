@@ -11,9 +11,12 @@ import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
 
 public class MenuLogin extends Menu {
-
+	
+	public static MenuLogin instance;
+	
 	public MenuLogin() {
-		super("Home");
+		super("Login");
+		instance = this;
 	}
 
 	@Override
@@ -71,5 +74,17 @@ public class MenuLogin extends Menu {
 			break;
 		}
 	}
+
+	public static MenuLogin getInstance() {
+		if (instance == null) instance = new MenuLogin();
+		return instance;
+	}
+
+	public static void setInstance(MenuLogin instance) {
+		MenuLogin.instance = instance;
+	}
+	
+	
+	
 
 }
