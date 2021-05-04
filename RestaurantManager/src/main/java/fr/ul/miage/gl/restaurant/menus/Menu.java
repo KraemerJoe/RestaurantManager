@@ -36,6 +36,7 @@ public abstract class Menu implements InterfaceMenu {
 			}
 		} while (choice <= 0 || choice >= (itemList.size() + 1));
 		executeChoice(choice);
+		show();
 	}
 
 	public void title() {
