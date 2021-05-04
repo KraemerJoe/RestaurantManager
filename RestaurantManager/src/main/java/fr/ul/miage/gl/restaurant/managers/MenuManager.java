@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.menus.MenuLogin;
+import fr.ul.miage.gl.restaurant.menus.roles.AssistantMenu;
+import fr.ul.miage.gl.restaurant.menus.roles.ButlerMenu;
+import fr.ul.miage.gl.restaurant.menus.roles.CookerMenu;
+import fr.ul.miage.gl.restaurant.menus.roles.DirectorMenu;
+import fr.ul.miage.gl.restaurant.menus.roles.WaiterMenu;
 
 public class MenuManager {
 	
@@ -24,6 +29,11 @@ public class MenuManager {
 
 	public void initMenus() {
 		menus.add(new MenuLogin());
+		menus.add(new AssistantMenu());
+		menus.add(new ButlerMenu());
+		menus.add(new CookerMenu());
+		menus.add(new DirectorMenu());
+		menus.add(new WaiterMenu());
 	}
 
 	public static MenuManager getInstance() {
