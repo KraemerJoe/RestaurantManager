@@ -105,6 +105,11 @@ public class TakeAnOrderMenu extends Menu {
 			if(cat != null) {
 				Dish dish = askForADish(cat);
 				if(dish != null) {
+					
+					int yesOrNo = MenuUtil.askForYesOrNo("Is it for a child ?");
+					if(yesOrNo == 1) dish.setForChild(true);
+					else dish.setForChild(false);
+					
 					choosedDishes.add(dish);
 				}
 			}

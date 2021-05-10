@@ -44,10 +44,7 @@ public class Order {
 	
 	public void populateWithDish(ArrayList<Dish> what) {
 		for (Dish dish : what) {
-			/*
-			 * Le champ false est à changer par le systeme proposant plat enfant ou non.
-			 */
-			SessionOrder sessionOrder = new SessionOrder(dish, this, false);
+			SessionOrder sessionOrder = new SessionOrder(dish, this, dish.isForChild());
 			EbeanManager.getInstance().getDb().insert(sessionOrder);
 		}
 	}
