@@ -43,7 +43,7 @@ public class TakeAnOrderMenu extends Menu {
 				return;
 			}
 			sendToCooker(tableFree, list);
-			
+			break;
 		case 2:
 			TableRestaurant tableBusy = askForBusyTable();
 			if(tableBusy == null) return;	
@@ -55,6 +55,7 @@ public class TakeAnOrderMenu extends Menu {
 				return;
 			}
 			sendToCooker(tableBusy, list2);
+			break;
 		}
 	}
 	
