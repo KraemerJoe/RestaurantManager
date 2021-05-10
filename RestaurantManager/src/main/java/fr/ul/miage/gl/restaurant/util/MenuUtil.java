@@ -11,6 +11,21 @@ public class MenuUtil {
 		}
 	}
 
+	public static int askForPositiveInt(String question) {
+
+		int choice = -1;
+		while (choice == -1 && choice <= 0) {
+			try {
+				System.out.println(question);
+				Scanner input = new Scanner(System.in);
+				choice = input.nextInt();
+			} catch (InputMismatchException e) {
+				System.err.println("An error happend with your entry !");
+			}
+		}
+		return choice;
+	}
+
 	public static String askForString(String question) {
 		String choice = "";
 
