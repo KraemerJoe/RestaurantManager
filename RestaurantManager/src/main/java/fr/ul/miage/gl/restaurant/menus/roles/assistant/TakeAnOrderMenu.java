@@ -8,6 +8,8 @@ import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
+import fr.ul.miage.gl.restaurant.pojo.orders.Order;
+import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
 import fr.ul.miage.gl.restaurant.pojo.tables.EnumTableStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
@@ -38,8 +40,10 @@ public class TakeAnOrderMenu extends Menu {
 			boolean confirmOrder = askForConfirmation(list);
 			if(!confirmOrder) {
 				System.out.println("This order has been canceled.");
+				return;
 			}
-			
+			sendToCooker(tableFree, list);
+			break;
 		case 2:
 			TableRestaurant tableBusy = askForBusyTable();
 			if(tableBusy == null) return;	
@@ -48,7 +52,34 @@ public class TakeAnOrderMenu extends Menu {
 			boolean confirmOrder2 = askForConfirmation(list2);
 			if(!confirmOrder2) {
 				System.out.println("This order has been canceled.");
+				return;
 			}
+			sendToCooker(tableBusy, list2);
+			break;
+		}
+	}
+	
+	private void sendToCooker(TableRestaurant to, ArrayList<Dish> what) {
+		if(!to.canTakeAnOrder()) {
+			System.err.println("This table cannot take any new order.");
+			return;
+		}else {
+			SessionClient session;
+			if(to.hasAlreadyASession()) {
+				session = to.findCurrentSession();
+			}
+			else {
+				session = to.createSession();
+			}
+			
+			to.setBusy();
+			EbeanManager.getInstance().getDb().save(to);
+			
+			Order order = session.createOrder();
+			order.populateWithDish(what);
+			
+			System.out.println("The order has been send to cookers !");
+			
 		}
 	}
 	
@@ -60,7 +91,7 @@ public class TakeAnOrderMenu extends Menu {
 		double sum = list.stream().mapToDouble(a -> a.getPrice()).sum();
 		MenuUtil.line();
 		System.out.println("Total: " + sum + "$");
-		int yesOrNo = MenuUtil.askForYesOrNo("Do you want to choose another dish ?");
+		int yesOrNo = MenuUtil.askForYesOrNo("Confirm the order ?");
 		if(yesOrNo == 1) return true;
 		else return false;
 	}
@@ -134,7 +165,7 @@ public class TakeAnOrderMenu extends Menu {
 	public TableRestaurant askForBusyTable() {
 		List<TableRestaurant> tables = EbeanManager.getInstance().getDb().find(TableRestaurant.class)
 				.where()
-				.eq("statut",EnumTableStat.FREE).findList();
+				.eq("statut",EnumTableStat.BUSY).findList();
 
 				int compteur = 0;
 				for (TableRestaurant tableRestaurant : tables) {
@@ -142,6 +173,10 @@ public class TakeAnOrderMenu extends Menu {
 					compteur++;
 				}
 				
+				if(tables.size() == 0) {
+					System.out.println("There is no busy tables.");
+					return null;
+				}
 				int tableId = MenuUtil.askForPositiveInt("Which table do you want ?");
 				
 				if(tables.size() <= tableId || tables.get(tableId) == null) {
@@ -168,6 +203,10 @@ public class TakeAnOrderMenu extends Menu {
 					compteur++;
 				}
 				
+				if(tables.size() == 0) {
+					System.out.println("There is no free or reserved tables.");
+					return null;
+				}
 				int tableId = MenuUtil.askForPositiveInt("Which table do you want ?");
 				
 				if(tables.size() <= tableId || tables.get(tableId) == null) {

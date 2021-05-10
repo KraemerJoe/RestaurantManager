@@ -1,11 +1,15 @@
 package fr.ul.miage.gl.restaurant.pojo.tables;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
+import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
 import io.ebean.annotation.NotNull;
 
 @Entity
@@ -29,6 +33,47 @@ public class TableRestaurant {
 		this.statut = statut;
 		this.floor = floor;
 		this.seats_amount = seats_amount;
+	}
+	
+	public void setReserved() {
+		statut = EnumTableStat.RESERVED;
+	}
+	
+	public void setFree() {
+		statut = EnumTableStat.FREE;
+	}
+	
+	public void setToClean() {
+		statut = EnumTableStat.TO_CLEAN;
+	}
+	
+	public void setBusy() {
+		statut = EnumTableStat.BUSY;
+	}
+	
+	public boolean hasAlreadyASession() {
+		if(!statut.equals(EnumTableStat.FREE) && !statut.equals(EnumTableStat.RESERVED)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean canTakeAnOrder() {
+		if(!statut.equals(EnumTableStat.TO_CLEAN)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public SessionClient createSession() {
+		SessionClient session = new SessionClient(this, new Date());
+		EbeanManager.getInstance().getDb().insert(session);
+		return session;
+	}
+	
+	public SessionClient findCurrentSession() {
+		return EbeanManager.getInstance().getDb().find(SessionClient.class).where().eq("table_id", this).orderBy()
+		.desc("date_arrival").findOne();
 	}
 	
 	public String getColor() {
@@ -82,6 +127,10 @@ public class TableRestaurant {
 	public void setSeats_amount(int seats_amount) {
 		this.seats_amount = seats_amount;
 	}
+
+
+
+
 
 
 
