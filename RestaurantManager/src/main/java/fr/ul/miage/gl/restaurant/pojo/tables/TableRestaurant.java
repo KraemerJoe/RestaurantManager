@@ -52,7 +52,7 @@ public class TableRestaurant {
 	public SessionClient createSession() {
 		SessionClient session = new SessionClient(this, new Date());
 		EbeanManager.getInstance().getDb().insert(session);
-		return findCurrentSession();
+		return session;
 	}
 	
 	public SessionClient findCurrentSession() {

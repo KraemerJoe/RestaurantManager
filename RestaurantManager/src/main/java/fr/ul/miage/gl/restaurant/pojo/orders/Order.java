@@ -1,6 +1,7 @@
 package fr.ul.miage.gl.restaurant.pojo.orders;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -11,7 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import fr.ul.miage.gl.restaurant.pojo.tables.EnumTableStat;
+import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
+import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 
 @Entity
 @Table(name = "\"ORDER\"")
@@ -38,6 +40,16 @@ public class Order {
 		this.sessionClient = sessionClient;
 		this.date_creation = new Date();
 		this.statut = EnumOrderStat.PENDING;
+	}
+	
+	public void populateWithDish(ArrayList<Dish> what) {
+		for (Dish dish : what) {
+			/*
+			 * Le champ false est à changer par le systeme proposant plat enfant ou non.
+			 */
+			SessionOrder sessionOrder = new SessionOrder(dish, this, false);
+			EbeanManager.getInstance().getDb().insert(sessionOrder);
+		}
 	}
 
 	public long getOrder_id() {
@@ -79,5 +91,7 @@ public class Order {
 	public void setStatut(EnumOrderStat statut) {
 		this.statut = statut;
 	}
+
+
 
 }

@@ -28,9 +28,10 @@ public class SessionClient {
 
 	private Date date_release;
 
-	public void createOrder() {
+	public Order createOrder() {
 		Order order = new Order(this);
 		EbeanManager.getInstance().getDb().insert(order);
+		return order;
 	}
 	
 	public SessionClient(TableRestaurant table_id, Date date_arrival) {
