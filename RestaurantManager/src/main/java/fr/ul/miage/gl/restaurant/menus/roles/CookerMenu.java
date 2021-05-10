@@ -28,10 +28,12 @@ public class CookerMenu extends Menu {
 		switch (choice) {
 		case 1:
 			List<SessionOrder> orders = new ArrayList<SessionOrder>();
-			orders = EbeanManager.getInstance().getDb().find(SessionOrder.class).where().eq("statut", EnumSessionOrderStat.PENDING).orderBy().asc("date_creation").findList();
+			orders = EbeanManager.getInstance().getDb().find(SessionOrder.class).where().eq("statut", EnumSessionOrderStat.PENDING).orderBy().desc("child").orderBy().asc("date_creation").findList();
+			
+			
 			System.out.println("List of pending orders: ");
 			for (SessionOrder sessionOrder : orders) {
-				System.out.println("- " + sessionOrder.getDish().getName() + " | " + sessionOrder.getDate_creation());
+				System.out.println("- " + (sessionOrder.isChild() ? "[CHILD] " : "") + "[TABLE #" + sessionOrder.getOrder().getSessionClient().getTable_id().getTable_id() + "] " + sessionOrder.getDish().getName() + " | " + sessionOrder.getDate_creation());
 			}
 			break;
 
