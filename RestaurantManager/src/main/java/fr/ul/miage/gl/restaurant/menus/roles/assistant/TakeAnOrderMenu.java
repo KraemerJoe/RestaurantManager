@@ -40,6 +40,7 @@ public class TakeAnOrderMenu extends Menu {
 			boolean confirmOrder = askForConfirmation(list);
 			if(!confirmOrder) {
 				System.out.println("This order has been canceled.");
+				return;
 			}
 			sendToCooker(tableFree, list);
 			
@@ -51,6 +52,7 @@ public class TakeAnOrderMenu extends Menu {
 			boolean confirmOrder2 = askForConfirmation(list2);
 			if(!confirmOrder2) {
 				System.out.println("This order has been canceled.");
+				return;
 			}
 			sendToCooker(tableBusy, list2);
 		}
@@ -88,7 +90,7 @@ public class TakeAnOrderMenu extends Menu {
 		double sum = list.stream().mapToDouble(a -> a.getPrice()).sum();
 		MenuUtil.line();
 		System.out.println("Total: " + sum + "$");
-		int yesOrNo = MenuUtil.askForYesOrNo("Do you want to choose another dish ?");
+		int yesOrNo = MenuUtil.askForYesOrNo("Confirm the order ?");
 		if(yesOrNo == 1) return true;
 		else return false;
 	}
