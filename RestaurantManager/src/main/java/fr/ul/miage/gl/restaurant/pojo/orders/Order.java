@@ -1,15 +1,17 @@
 package fr.ul.miage.gl.restaurant.pojo.orders;
 
-
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
@@ -32,8 +34,8 @@ public class Order {
 
 	@Enumerated(EnumType.STRING)
 	private EnumOrderStat statut;
-	
-	
+
+
 
 	public Order(SessionClient sessionClient) {
 		super();
@@ -41,7 +43,7 @@ public class Order {
 		this.date_creation = new Date();
 		this.statut = EnumOrderStat.PENDING;
 	}
-	
+
 	public void populateWithDish(ArrayList<Dish> what) {
 		for (Dish dish : what) {
 			SessionOrder sessionOrder = new SessionOrder(dish, this, dish.isForChild());
@@ -89,6 +91,7 @@ public class Order {
 		this.statut = statut;
 	}
 
-
+	
+	
 
 }
