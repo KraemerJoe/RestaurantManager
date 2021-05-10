@@ -172,6 +172,10 @@ public class TakeAnOrderMenu extends Menu {
 					compteur++;
 				}
 				
+				if(tables.size() == 0) {
+					System.out.println("There is no busy tables.");
+					return null;
+				}
 				int tableId = MenuUtil.askForPositiveInt("Which table do you want ?");
 				
 				if(tables.size() <= tableId || tables.get(tableId) == null) {
@@ -198,6 +202,10 @@ public class TakeAnOrderMenu extends Menu {
 					compteur++;
 				}
 				
+				if(tables.size() == 0) {
+					System.out.println("There is no free or reserved tables.");
+					return null;
+				}
 				int tableId = MenuUtil.askForPositiveInt("Which table do you want ?");
 				
 				if(tables.size() <= tableId || tables.get(tableId) == null) {
