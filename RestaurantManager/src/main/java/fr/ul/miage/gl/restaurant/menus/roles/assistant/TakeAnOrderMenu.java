@@ -5,6 +5,8 @@ import java.util.List;
 import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
+import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
+import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import fr.ul.miage.gl.restaurant.pojo.tables.EnumTableStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
@@ -31,9 +33,16 @@ public class TakeAnOrderMenu extends Menu {
 			TableRestaurant tableFree = askForFreeOrReservedTable();
 			if(tableFree == null) return;
 			
+			Category cat = askForACategory();
+			if(cat == null) return;
+			Dish dish = askForADish(cat);
+			if(dish == null) return;
+			
+			
 		case 2:
 			TableRestaurant tableBusy = askForBusyTable();
 			if(tableBusy == null) return;	
+			
 			
 		}
 	}
@@ -45,6 +54,49 @@ public class TakeAnOrderMenu extends Menu {
 
 	public static void setInstance(TakeAnOrderMenu instance) {
 		TakeAnOrderMenu.instance = instance;
+	}
+	
+	public Category askForACategory() {
+		List<Category> categories = EbeanManager.getInstance().getDb().find(Category.class)
+				.findList();
+
+				int compteur = 0;
+				for (Category c : categories) {
+					System.out.println("[" + compteur + "] " + c.getName());
+					compteur++;
+				}
+				
+				int categoryId = MenuUtil.askForPositiveInt("Which category do you want ?");
+				
+				if(categories.size() <= categoryId || categories.get(categoryId) == null) {
+					System.out.println("This category doesn't exist.");
+					return null;
+				}else {
+					Category c = categories.get(categoryId);
+					return c;
+				}
+	}
+	
+	public Dish askForADish(Category cat) {
+		List<Dish> dishs = EbeanManager.getInstance().getDb().find(Dish.class)
+				.where()
+				.eq("category",cat).findList();
+
+				int compteur = 0;
+				for (Dish dish : dishs) {
+					System.out.println("[" + compteur + "] " + dish.getName() + " - " + dish.getPrice() + "$");
+					compteur++;
+				}
+				
+				int dishId = MenuUtil.askForPositiveInt("Which dish do you want ?");
+				
+				if(dishs.size() <= dishId || dishs.get(dishId) == null) {
+					System.out.println("This dish doesn't exist.");
+					return null;
+				}else {
+					Dish dish = dishs.get(dishId);
+					return dish;
+				}
 	}
 	
 	public TableRestaurant askForBusyTable() {
