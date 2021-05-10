@@ -1,5 +1,6 @@
 package fr.ul.miage.gl.restaurant.menus.roles.assistant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
@@ -32,28 +33,59 @@ public class TakeAnOrderMenu extends Menu {
 		case 1:
 			TableRestaurant tableFree = askForFreeOrReservedTable();
 			if(tableFree == null) return;
-			
-			Category cat = askForACategory();
-			if(cat == null) return;
-			Dish dish = askForADish(cat);
-			if(dish == null) return;
-			
+			ArrayList<Dish> list = orderOfDish();
+			if(list.isEmpty()) return;
+			boolean confirmOrder = askForConfirmation(list);
+			if(!confirmOrder) {
+				System.out.println("This order has been canceled.");
+			}
 			
 		case 2:
 			TableRestaurant tableBusy = askForBusyTable();
 			if(tableBusy == null) return;	
-			
-			
+			ArrayList<Dish> list2 = orderOfDish();
+			if(list2.isEmpty()) return;
+			boolean confirmOrder2 = askForConfirmation(list2);
+			if(!confirmOrder2) {
+				System.out.println("This order has been canceled.");
+			}
 		}
 	}
 	
-	public static TakeAnOrderMenu getInstance() {
-		if (instance == null) instance = new TakeAnOrderMenu();
-		return instance;
+	private boolean askForConfirmation(ArrayList<Dish> list) {
+		System.out.println("Would you like to confirm this order ?");
+		for (Dish dish : list) {
+			System.out.println("- " + dish.getName() + " | " + dish.getPrice() + "$");
+		}
+		double sum = list.stream().mapToDouble(a -> a.getPrice()).sum();
+		MenuUtil.line();
+		System.out.println("Total: " + sum + "$");
+		int yesOrNo = MenuUtil.askForYesOrNo("Do you want to choose another dish ?");
+		if(yesOrNo == 1) return true;
+		else return false;
 	}
 
-	public static void setInstance(TakeAnOrderMenu instance) {
-		TakeAnOrderMenu.instance = instance;
+	public ArrayList<Dish> orderOfDish(){
+		ArrayList<Dish> choosedDishes = new ArrayList<Dish>();
+		
+		boolean finish = false;
+		while(!finish) {
+			Category cat = askForACategory();
+			if(cat != null) {
+				Dish dish = askForADish(cat);
+				if(dish != null) {
+					choosedDishes.add(dish);
+				}
+			}
+
+			int yesOrNo = MenuUtil.askForYesOrNo("Do you want to choose another dish ?");
+			if(yesOrNo == 1) continue;
+			else finish = true;
+		}
+		
+		
+		
+		return choosedDishes;
 	}
 	
 	public Category askForACategory() {
@@ -121,6 +153,7 @@ public class TakeAnOrderMenu extends Menu {
 				}
 	}
 	
+	
 	public TableRestaurant askForFreeOrReservedTable() {
 		List<TableRestaurant> tables = EbeanManager.getInstance().getDb().find(TableRestaurant.class)
 				.where()
@@ -146,4 +179,14 @@ public class TakeAnOrderMenu extends Menu {
 				}
 	}
 
+	
+	public static TakeAnOrderMenu getInstance() {
+		if (instance == null) instance = new TakeAnOrderMenu();
+		return instance;
+	}
+
+	public static void setInstance(TakeAnOrderMenu instance) {
+		TakeAnOrderMenu.instance = instance;
+	}
+	
 }
