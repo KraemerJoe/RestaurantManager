@@ -162,7 +162,7 @@ public class TakeAnOrderMenu extends Menu {
 	public TableRestaurant askForBusyTable() {
 		List<TableRestaurant> tables = EbeanManager.getInstance().getDb().find(TableRestaurant.class)
 				.where()
-				.eq("statut",EnumTableStat.FREE).findList();
+				.eq("statut",EnumTableStat.BUSY).findList();
 
 				int compteur = 0;
 				for (TableRestaurant tableRestaurant : tables) {
