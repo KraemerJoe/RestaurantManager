@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -15,16 +16,21 @@ import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 @Table(name = "\"SESSION_ORDER\"")
 public class SessionOrder {
 
-	@ManyToOne @JoinColumn(name = "dish_id")
+	@Id
+	protected long session_order_id;
+
+	@ManyToOne
+	@JoinColumn(name = "dish_id")
 	private Dish dish;
-	
-	@ManyToOne @JoinColumn(name = "order_id")
+
+	@ManyToOne
+	@JoinColumn(name = "order_id")
 	private Order order;
-	
+
 	private Date date_creation;
 
 	private Date date_completion;
-	
+
 	public SessionOrder(Dish dish, Order order, boolean child) {
 		super();
 		this.dish = dish;
@@ -34,10 +40,14 @@ public class SessionOrder {
 		this.statut = EnumSessionOrderStat.PENDING;
 	}
 
-	private boolean child;	
+	private boolean child;
 
 	@Enumerated(EnumType.STRING)
 	private EnumSessionOrderStat statut;
+
+	public void setReadyToServe() {
+		statut = EnumSessionOrderStat.READY_TO_SERVE;
+	}
 
 	public Dish getDish() {
 		return dish;
@@ -86,11 +96,13 @@ public class SessionOrder {
 	public void setDate_completion(Date date_completion) {
 		this.date_completion = date_completion;
 	}
-	
-	
-	
-	
-	
-	
+
+	public long getSession_order_id() {
+		return session_order_id;
+	}
+
+	public void setSession_order_id(long session_order_id) {
+		this.session_order_id = session_order_id;
+	}
 
 }
