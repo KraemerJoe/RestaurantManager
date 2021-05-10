@@ -1,5 +1,7 @@
 package fr.ul.miage.gl.restaurant.pojo.orders;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,13 +21,16 @@ public class SessionOrder {
 	@ManyToOne @JoinColumn(name = "order_id")
 	private Order order;
 	
-	
+	private Date date_creation;
+
+	private Date date_completion;
 	
 	public SessionOrder(Dish dish, Order order, boolean child) {
 		super();
 		this.dish = dish;
 		this.order = order;
 		this.child = child;
+		this.date_creation = new Date();
 		this.statut = EnumSessionOrderStat.PENDING;
 	}
 
@@ -65,6 +70,23 @@ public class SessionOrder {
 	public void setStatut(EnumSessionOrderStat statut) {
 		this.statut = statut;
 	}
+
+	public Date getDate_creation() {
+		return date_creation;
+	}
+
+	public void setDate_creation(Date date_creation) {
+		this.date_creation = date_creation;
+	}
+
+	public Date getDate_completion() {
+		return date_completion;
+	}
+
+	public void setDate_completion(Date date_completion) {
+		this.date_completion = date_completion;
+	}
+	
 	
 	
 	
