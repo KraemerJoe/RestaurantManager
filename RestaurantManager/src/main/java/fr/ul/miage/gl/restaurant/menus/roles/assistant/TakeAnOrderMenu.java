@@ -8,6 +8,7 @@ import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
+import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
 import fr.ul.miage.gl.restaurant.pojo.tables.EnumTableStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
@@ -39,6 +40,7 @@ public class TakeAnOrderMenu extends Menu {
 			if(!confirmOrder) {
 				System.out.println("This order has been canceled.");
 			}
+			sendToCooker(tableFree, list);
 			
 		case 2:
 			TableRestaurant tableBusy = askForBusyTable();
@@ -49,6 +51,26 @@ public class TakeAnOrderMenu extends Menu {
 			if(!confirmOrder2) {
 				System.out.println("This order has been canceled.");
 			}
+			sendToCooker(tableBusy, list2);
+		}
+	}
+	
+	private void sendToCooker(TableRestaurant to, ArrayList<Dish> what) {
+		if(!to.canTakeAnOrder()) {
+			System.err.println("This table cannot take any new order.");
+			return;
+		}else {
+			SessionClient session;
+			if(to.hasAlreadyASession()) {
+				session = to.findCurrentSession();
+			}
+			else {
+				session = to.createSession();
+			}
+			
+			session.createOrder();
+			
+			
 		}
 	}
 	

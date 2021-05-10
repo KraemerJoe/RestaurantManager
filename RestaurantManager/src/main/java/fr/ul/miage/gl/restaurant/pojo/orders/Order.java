@@ -1,12 +1,17 @@
 package fr.ul.miage.gl.restaurant.pojo.orders;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import fr.ul.miage.gl.restaurant.pojo.tables.EnumTableStat;
 
 @Entity
 @Table(name = "\"ORDER\"")
@@ -23,7 +28,17 @@ public class Order {
 
 	private Date date_completion;
 
-	private String statut;
+	@Enumerated(EnumType.STRING)
+	private EnumOrderStat statut;
+	
+	
+
+	public Order(SessionClient sessionClient) {
+		super();
+		this.sessionClient = sessionClient;
+		this.date_creation = new Date();
+		this.statut = EnumOrderStat.PENDING;
+	}
 
 	public long getOrder_id() {
 		return order_id;
@@ -57,11 +72,11 @@ public class Order {
 		this.date_completion = date_completion;
 	}
 
-	public String getStatut() {
+	public EnumOrderStat getStatut() {
 		return statut;
 	}
 
-	public void setStatut(String statut) {
+	public void setStatut(EnumOrderStat statut) {
 		this.statut = statut;
 	}
 

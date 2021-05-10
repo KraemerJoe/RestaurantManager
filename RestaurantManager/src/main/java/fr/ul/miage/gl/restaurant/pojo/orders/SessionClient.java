@@ -1,6 +1,8 @@
 package fr.ul.miage.gl.restaurant.pojo.orders;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 
 @Entity
@@ -25,6 +28,17 @@ public class SessionClient {
 
 	private Date date_release;
 
+	public void createOrder() {
+		Order order = new Order(this);
+		EbeanManager.getInstance().getDb().insert(order);
+	}
+	
+	public SessionClient(TableRestaurant table_id, Date date_arrival) {
+		super();
+		this.table_id = table_id;
+		this.date_arrival = date_arrival;
+	}
+	
 	public SessionClient(long session_client_id, TableRestaurant table_id, Date date_arrival, Date date_release) {
 		super();
 		this.session_client_id = session_client_id;
@@ -32,6 +46,8 @@ public class SessionClient {
 		this.date_arrival = date_arrival;
 		this.date_release = date_release;
 	}
+	
+	
 
 	public SessionClient(long session_client_id) {
 		super();
@@ -69,5 +85,7 @@ public class SessionClient {
 	public void setDate_release(Date date_release) {
 		this.date_release = date_release;
 	}
+
+
 
 }
