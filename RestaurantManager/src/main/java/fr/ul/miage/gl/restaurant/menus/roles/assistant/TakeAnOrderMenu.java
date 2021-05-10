@@ -69,8 +69,13 @@ public class TakeAnOrderMenu extends Menu {
 				session = to.createSession();
 			}
 			
+			to.setBusy();
+			EbeanManager.getInstance().getDb().save(to);
+			
 			Order order = session.createOrder();
 			order.populateWithDish(what);
+			
+			System.out.println("The order has been send to cookers !");
 			
 		}
 	}

@@ -35,6 +35,22 @@ public class TableRestaurant {
 		this.seats_amount = seats_amount;
 	}
 	
+	public void setReserved() {
+		statut = EnumTableStat.RESERVED;
+	}
+	
+	public void setFree() {
+		statut = EnumTableStat.FREE;
+	}
+	
+	public void setToClean() {
+		statut = EnumTableStat.TO_CLEAN;
+	}
+	
+	public void setBusy() {
+		statut = EnumTableStat.BUSY;
+	}
+	
 	public boolean hasAlreadyASession() {
 		if(!statut.equals(EnumTableStat.FREE) && !statut.equals(EnumTableStat.RESERVED)) {
 			return true;
