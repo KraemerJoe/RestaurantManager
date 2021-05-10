@@ -1,6 +1,8 @@
 package fr.ul.miage.gl.restaurant.pojo.tables;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,8 +15,8 @@ public class TableRestaurant {
 	@Id
 	protected long table_id;
 
-	@NotNull
-	private String statut;
+	@Enumerated(EnumType.STRING)
+	private EnumTableStat statut;
 
 	@NotNull
 	private int floor;
@@ -22,11 +24,26 @@ public class TableRestaurant {
 	@NotNull
 	private int seats_amount;
 
-	public TableRestaurant(String statut, int floor, int seats_amount) {
+	public TableRestaurant(EnumTableStat statut, int floor, int seats_amount) {
 		super();
 		this.statut = statut;
 		this.floor = floor;
 		this.seats_amount = seats_amount;
+	}
+	
+	public String getColor() {
+		switch (statut) {
+		case BUSY:
+			return "YELLOW";
+		case FREE:
+			return "GREEN";
+		case RESERVED:
+			return "ORANGE";
+		case TO_CLEAN:
+			return "RED";
+		default:
+			return "RED";
+		}
 	}
 
 	public TableRestaurant(long table_id) {
@@ -42,11 +59,11 @@ public class TableRestaurant {
 		this.table_id = table_id;
 	}
 
-	public String getStatut() {
+	public EnumTableStat getStatut() {
 		return statut;
 	}
 
-	public void setStatut(String statut) {
+	public void setStatut(EnumTableStat statut) {
 		this.statut = statut;
 	}
 
@@ -65,5 +82,7 @@ public class TableRestaurant {
 	public void setSeats_amount(int seats_amount) {
 		this.seats_amount = seats_amount;
 	}
+
+
 
 }
