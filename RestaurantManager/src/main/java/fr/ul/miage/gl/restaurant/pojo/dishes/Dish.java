@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "\"DISH\"")
@@ -20,6 +21,9 @@ public class Dish {
 	
 	private double price;
 
+	@Transient
+	private boolean forChild;
+	
 	public Dish(long dish_id) {
 		super();
 		this.dish_id = dish_id;
@@ -63,6 +67,15 @@ public class Dish {
 	public void setPrice(float price) {
 		this.price = price;
 	}
+
+	public boolean isForChild() {
+		return forChild;
+	}
+
+	public void setForChild(boolean forChild) {
+		this.forChild = forChild;
+	}
+	
 	
 	
 
