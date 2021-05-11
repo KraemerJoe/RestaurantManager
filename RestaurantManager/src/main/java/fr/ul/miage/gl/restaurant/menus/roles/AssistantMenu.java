@@ -44,9 +44,9 @@ public class AssistantMenu extends Menu {
 			}
 		case 3:
 			List<TableRestaurant> listTable = new ArrayList<TableRestaurant>();
-			listTable = EbeanManager.getInstance().getDb().find(TableRestaurant.class).orderBy().asc("table_id").findList();
+			listTable = EbeanManager.getInstance().getDb().find(TableRestaurant.class).orderBy().asc("floor").orderBy().asc("table_id").findList();
 			for (TableRestaurant table : listTable) {
-				System.out.println("[TABLE #" + table.getTable_id() + "] " + table.getStatut());
+				System.out.println("[TABLE #" + table.getTable_id() + "] " + table.getStatut() + " | Floor : " + table.getFloor());
 			}
 			
 			break;
