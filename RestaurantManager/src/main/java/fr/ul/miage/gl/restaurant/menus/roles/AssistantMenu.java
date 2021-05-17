@@ -29,6 +29,7 @@ public class AssistantMenu extends Menu {
 		itemList.add(new ItemMenu("Checkout", "See the evolution of the dishs of each table"));
 		itemList.add(new ItemMenu("Room Occupation", "See the occupation of the room"));
 		itemList.add(new ItemMenu("Tables state", "See if tables are clean or not"));
+		itemList.add(new ItemMenu("Tables that got available", "See which table just got available"));
 	}
 
 	@Override
@@ -54,15 +55,25 @@ public class AssistantMenu extends Menu {
 			break;
 		case 4:
 			List<TableRestaurant> listTableClean = new ArrayList<TableRestaurant>();
-			listTable = EbeanManager.getInstance().getDb().find(TableRestaurant.class).orderBy().asc("floor").orderBy().asc("table_id").findList();
+			listTableClean = EbeanManager.getInstance().getDb().find(TableRestaurant.class).orderBy().asc("floor").orderBy().asc("table_id").findList();
 			String tableState="";
-			for (TableRestaurant table : listTable) {
+			for (TableRestaurant table : listTableClean) {
 				if(table.getStatut().equals(EnumTableStat.TO_CLEAN)) {
 					tableState="Dirty";
 				}else {
 					tableState="Clean";
 				}
 				System.out.println("[TABLE #" + table.getTable_id() + "] Floor : " + table.getFloor() + " | Table state : " + tableState);
+			}
+			
+			break;
+		case 5:
+			List<TableRestaurant> listTableAvailable = new ArrayList<TableRestaurant>();
+			listTableAvailable = EbeanManager.getInstance().getDb().find(TableRestaurant.class).orderBy().asc("floor").orderBy().asc("table_id").findList();
+			for (TableRestaurant table : listTableAvailable) {
+				if(table.getStatut().equals(EnumTableStat.TO_CLEAN) && table.getStatut().equals(EnumTableStat.FREE)) {
+					System.out.println("[TABLE #" + table.getTable_id() + "] Floor : " + table.getFloor());
+				}
 			}
 			
 			break;
