@@ -11,6 +11,8 @@ import fr.ul.miage.gl.restaurant.pojo.orders.EnumOrderStat;
 import fr.ul.miage.gl.restaurant.pojo.orders.EnumSessionOrderStat;
 import fr.ul.miage.gl.restaurant.pojo.orders.Order;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
+import fr.ul.miage.gl.restaurant.pojo.tables.EnumTableStat;
+import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 
 public class AssistantMenu extends Menu {
 
@@ -25,6 +27,8 @@ public class AssistantMenu extends Menu {
 	public void initMenuItems() {
 		itemList.add(new ItemMenu("Take an order", "Create a new order for a client"));
 		itemList.add(new ItemMenu("Checkout", "See the evolution of the dishs of each table"));
+		itemList.add(new ItemMenu("Room Occupation", "See the occupation of the room"));
+		itemList.add(new ItemMenu("Tables state", "See if tables are clean or not"));
 	}
 
 	@Override
@@ -40,6 +44,29 @@ public class AssistantMenu extends Menu {
 			for (SessionOrder session : list) {
 				System.out.println("[TABLE #" + session.getOrder().getSessionClient().getTable_id().getTable_id() + "] " + session.getDish().getName() + " | " + session.getStatut());
 			}
+		case 3:
+			List<TableRestaurant> listTable = new ArrayList<TableRestaurant>();
+			listTable = EbeanManager.getInstance().getDb().find(TableRestaurant.class).orderBy().asc("floor").orderBy().asc("table_id").findList();
+			for (TableRestaurant table : listTable) {
+				System.out.println("[TABLE #" + table.getTable_id() + "] " + table.getStatut() + " | Floor : " + table.getFloor());
+			}
+			
+			break;
+		case 4:
+			List<TableRestaurant> listTableClean = new ArrayList<TableRestaurant>();
+			listTable = EbeanManager.getInstance().getDb().find(TableRestaurant.class).orderBy().asc("floor").orderBy().asc("table_id").findList();
+			String tableState="";
+			for (TableRestaurant table : listTable) {
+				if(table.getStatut().equals(EnumTableStat.TO_CLEAN)) {
+					tableState="Dirty";
+				}else {
+					tableState="Clean";
+				}
+				System.out.println("[TABLE #" + table.getTable_id() + "] Floor : " + table.getFloor() + " | Table state : " + tableState);
+			}
+			
+			break;
+
 		default:
 			break;
 		}

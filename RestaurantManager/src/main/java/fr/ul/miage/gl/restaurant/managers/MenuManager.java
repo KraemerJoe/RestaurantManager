@@ -21,13 +21,13 @@ public class MenuManager {
 		initMenus();
 		initMenusItems();
 	}
-	
+	 
 	private void initMenusItems() {
 		for (Menu menu : menus) {
 			menu.initMenuItems();
 		}
 	}
-
+	
 	public void initMenus() {
 		menus.add(new MenuLogin());
 		menus.add(new AssistantMenu());
