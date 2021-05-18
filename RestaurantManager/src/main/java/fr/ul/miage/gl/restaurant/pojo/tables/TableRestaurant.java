@@ -17,6 +17,8 @@ import io.ebean.annotation.NotNull;
 @Table(name = "\"TABLE_RESTAURANT\"")
 public class TableRestaurant extends Model{
 
+	public static final TableRestaurantFinder find = new TableRestaurantFinder();
+	  
 	@Id
 	protected long table_id;
 
@@ -68,7 +70,7 @@ public class TableRestaurant extends Model{
 	
 	public SessionClient createSession() {
 		SessionClient session = new SessionClient(this, new Date());
-		EbeanManager.getInstance().getDb().insert(session);
+		session.save();
 		return session;
 	}
 	

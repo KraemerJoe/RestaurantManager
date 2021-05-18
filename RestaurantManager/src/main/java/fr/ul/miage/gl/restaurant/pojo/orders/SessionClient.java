@@ -12,11 +12,14 @@ import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
+import io.ebean.Finder;
 import io.ebean.Model;
 
 @Entity
 @Table(name = "\"SESSION_CLIENT\"")
 public class SessionClient extends Model{
+
+	public static Finder<Long, SessionClient> find = new Finder<Long, SessionClient>(SessionClient.class);
 
 	@Id
 	protected long session_client_id;
