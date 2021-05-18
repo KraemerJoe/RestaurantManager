@@ -1,4 +1,4 @@
-package fr.ul.miage.gl.restaurant.pojo.tables;
+package fr.ul.miage.gl.restaurant.pojo.tables.enums;
 
 public enum EnumTableStat {
 	FREE,

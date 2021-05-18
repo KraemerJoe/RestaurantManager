@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
+import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumOrderStat;
 import io.ebean.Model;
 
 @Entity

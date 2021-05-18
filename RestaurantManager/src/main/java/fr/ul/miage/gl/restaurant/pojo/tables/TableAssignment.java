@@ -5,8 +5,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import fr.ul.miage.gl.restaurant.pojo.orders.SessionClientFinder;
+import fr.ul.miage.gl.restaurant.pojo.orders.finders.SessionClientFinder;
 import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
+import fr.ul.miage.gl.restaurant.pojo.tables.finders.TableAssignmentFinder;
 import io.ebean.Model;
 
 @Entity

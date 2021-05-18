@@ -1,4 +1,4 @@
-package fr.ul.miage.gl.restaurant.pojo.orders;
+package fr.ul.miage.gl.restaurant.pojo.orders.enums;
 
 public enum EnumSessionOrderStat {
 	PENDING,

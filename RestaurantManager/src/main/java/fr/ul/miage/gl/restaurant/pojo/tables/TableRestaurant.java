@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
+import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
+import fr.ul.miage.gl.restaurant.pojo.tables.finders.TableRestaurantFinder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 

@@ -6,7 +6,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurantFinder;
+import fr.ul.miage.gl.restaurant.pojo.staff.enums.EnumRoles;
+import fr.ul.miage.gl.restaurant.pojo.staff.finders.StaffFinder;
+import fr.ul.miage.gl.restaurant.pojo.tables.finders.TableRestaurantFinder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 
