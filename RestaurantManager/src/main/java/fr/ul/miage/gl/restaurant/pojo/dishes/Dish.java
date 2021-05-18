@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import fr.ul.miage.gl.restaurant.pojo.dishes.finders.DishFinder;
 import io.ebean.Model;
 
 @Entity

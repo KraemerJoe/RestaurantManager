@@ -1,7 +1,9 @@
-package fr.ul.miage.gl.restaurant.pojo.dishes;
+package fr.ul.miage.gl.restaurant.pojo.dishes.finders;
 
 import java.util.List;
 
+import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
+import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import io.ebean.Finder;
 
 public class DishFinder extends Finder<Long, Dish> {
@@ -10,12 +12,7 @@ public class DishFinder extends Finder<Long, Dish> {
 		super(Dish.class);
 	}
 
-	public Dish byUniqueName(String name) {
-
-		return query().where().eq("name", name).findOne();
-	}
-	
-	public List<Dish> byCategory(Category cat){
+	public List<Dish> byCategory(Category cat) {
 		return query().where().eq("category", cat).findList();
 	}
 

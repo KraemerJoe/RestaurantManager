@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import fr.ul.miage.gl.restaurant.pojo.dishes.finders.CategoryFinder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 

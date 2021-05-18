@@ -7,8 +7,8 @@ import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.menus.roles.assistant.TakeAnOrderMenu;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
-import fr.ul.miage.gl.restaurant.pojo.tables.EnumTableStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
+import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
 
 public class AssistantMenu extends Menu {
 

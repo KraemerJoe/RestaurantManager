@@ -1,5 +1,6 @@
-package fr.ul.miage.gl.restaurant.pojo.staff;
+package fr.ul.miage.gl.restaurant.pojo.staff.finders;
 
+import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
 import io.ebean.Finder;
 
 public class StaffFinder extends Finder<Long, Staff> {

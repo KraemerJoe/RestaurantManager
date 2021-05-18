@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
-import fr.ul.miage.gl.restaurant.pojo.tables.EnumTableStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
+import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
 import io.ebean.MockiEbean;
 import io.ebean.mocker.DelegateEbeanServer;
 

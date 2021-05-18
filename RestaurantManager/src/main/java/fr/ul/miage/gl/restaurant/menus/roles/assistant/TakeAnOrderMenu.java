@@ -9,8 +9,8 @@ import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import fr.ul.miage.gl.restaurant.pojo.orders.Order;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
-import fr.ul.miage.gl.restaurant.pojo.tables.EnumTableStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
+import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
 
 public class TakeAnOrderMenu extends Menu {

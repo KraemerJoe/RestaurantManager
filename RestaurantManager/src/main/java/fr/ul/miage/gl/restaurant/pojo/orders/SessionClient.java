@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.ul.miage.gl.restaurant.pojo.orders.finders.SessionClientFinder;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 import io.ebean.Model;
 
