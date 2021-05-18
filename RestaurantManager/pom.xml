@@ -23,11 +23,11 @@
 	</properties>
 	<dependencies>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.avaje.composite</groupId> -->
-<!-- 			<artifactId>logback</artifactId> -->
-<!-- 			<version>1.1</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.avaje.composite</groupId> -->
+		<!-- <artifactId>logback</artifactId> -->
+		<!-- <version>1.1</version> -->
+		<!-- </dependency> -->
 
 		<!-- Normally you only have the 1 JDBC driver but we are running and testing 
 			this against postgres, sqlserver and mysql -->
@@ -37,6 +37,27 @@
 			<version>42.2.18</version>
 		</dependency>
 
+
+		<!-- https://mvnrepository.com/artifact/br.com.flexait/dbunit-ebean -->
+		<dependency>
+			<groupId>br.com.flexait</groupId>
+			<artifactId>dbunit-ebean</artifactId>
+			<version>0.3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.ebean</groupId>
+			<artifactId>ebean-mocker</artifactId>
+			<version>12.6.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.199</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>com.microsoft.sqlserver</groupId> -->
 		<!-- <artifactId>mssql-jdbc</artifactId> -->
@@ -105,11 +126,11 @@
 			<version>1.7.30</version>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>ch.qos.logback</groupId> -->
-<!-- 			<artifactId>logback-classic</artifactId> -->
-<!-- 			<version>1.2.3</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>ch.qos.logback</groupId> -->
+		<!-- <artifactId>logback-classic</artifactId> -->
+		<!-- <version>1.2.3</version> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>io.ebean</groupId>
