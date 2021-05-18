@@ -8,9 +8,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import io.ebean.Model;
+
 @Entity
 @Table(name = "\"INVOICE\"")
-public class Invoice {
+public class Invoice extends Model{
 
 	@Id
 	protected long invoice_id;

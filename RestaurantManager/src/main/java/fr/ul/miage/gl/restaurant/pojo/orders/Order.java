@@ -16,10 +16,11 @@ import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
+import io.ebean.Model;
 
 @Entity
 @Table(name = "\"ORDER\"")
-public class Order {
+public class Order extends Model{
 
 	@Id
 	protected long order_id;

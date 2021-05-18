@@ -6,10 +6,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
+import io.ebean.Model;
 
 @Entity
 @Table(name = "\"TABLE_ASSIGNMENT\"")
-public class TableAssignment {
+public class TableAssignment extends Model{
 
 	@ManyToOne @JoinColumn(name = "staff_id")
 	private Staff staff;

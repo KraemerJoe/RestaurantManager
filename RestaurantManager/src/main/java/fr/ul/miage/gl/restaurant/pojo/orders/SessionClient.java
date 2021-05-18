@@ -12,10 +12,11 @@ import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
+import io.ebean.Model;
 
 @Entity
 @Table(name = "\"SESSION_CLIENT\"")
-public class SessionClient {
+public class SessionClient extends Model{
 
 	@Id
 	protected long session_client_id;

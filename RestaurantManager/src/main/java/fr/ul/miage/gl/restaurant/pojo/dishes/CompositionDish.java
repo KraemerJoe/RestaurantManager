@@ -6,9 +6,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import io.ebean.Model;
+
 @Entity
 @Table(name = "\"COMPOSITION_DISH\"")
-public class CompositionDish {
+public class CompositionDish extends Model{
 
 	@ManyToOne @JoinColumn(name = "dish_id")
 	private Dish dish;
