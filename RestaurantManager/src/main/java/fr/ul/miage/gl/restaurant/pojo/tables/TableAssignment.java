@@ -5,6 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.ul.miage.gl.restaurant.pojo.orders.SessionClientFinder;
 import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
 import io.ebean.Model;
 
@@ -12,6 +13,8 @@ import io.ebean.Model;
 @Table(name = "\"TABLE_ASSIGNMENT\"")
 public class TableAssignment extends Model{
 
+	public static TableAssignmentFinder find = new TableAssignmentFinder();
+	
 	@ManyToOne @JoinColumn(name = "staff_id")
 	private Staff staff;
 	

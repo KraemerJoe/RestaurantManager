@@ -10,7 +10,9 @@ import io.ebean.annotation.NotNull;
 @Entity
 @Table(name = "\"CATEGORY\"")
 public class Category extends Model{
-
+	
+	public static final CategoryFinder find = new CategoryFinder();
+	
 	@Id
 	protected long category_id;
 	

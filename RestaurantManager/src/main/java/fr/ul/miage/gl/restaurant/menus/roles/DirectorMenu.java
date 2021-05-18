@@ -2,7 +2,6 @@ package fr.ul.miage.gl.restaurant.menus.roles;
 
 import java.util.ArrayList;
 
-import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.pojo.dishes.RawMaterial;
@@ -26,7 +25,7 @@ public class DirectorMenu extends Menu {
 		switch (choice) {
 		case 1:
 			ArrayList<RawMaterial> materials = new ArrayList<RawMaterial>();
-			materials.addAll(EbeanManager.getInstance().getDb().find(RawMaterial.class).findList());
+			materials.addAll(RawMaterial.find.all());
 			for (RawMaterial rawMaterial : materials) {
 				System.out.println("- " + rawMaterial.getName() + " [" + rawMaterial.getStock() + "]");			}
 		}

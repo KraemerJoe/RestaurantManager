@@ -2,13 +2,10 @@ package fr.ul.miage.gl.restaurant.menus.roles;
 
 import java.util.ArrayList;
 
-import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.managers.SessionManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
-import fr.ul.miage.gl.restaurant.pojo.dishes.RawMaterial;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableAssignment;
-import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 
 public class WaiterMenu extends Menu {
 
@@ -30,10 +27,7 @@ public class WaiterMenu extends Menu {
 		case 1:
 			ArrayList<TableAssignment> tables = new ArrayList<TableAssignment>();
 			
-			tables.addAll(EbeanManager.getInstance().getDb().find(TableAssignment.class)
-					.where()
-					.eq("staff_id", SessionManager.getInstance().getAccount().getStaff_id())
-					.findList());
+			tables.addAll(TableAssignment.find.assignmentByStaffId(SessionManager.getInstance().getAccount().getStaff_id()));
 			for (TableAssignment ta : tables) {
 				System.out.println(ta.getTable().getColor() + "-[" + ta.getTable().getTable_id() + "] | Floor: " + ta.getTable().getFloor() + " | Seats: " + ta.getTable().getSeats_amount());
 			}

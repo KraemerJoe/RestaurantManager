@@ -11,6 +11,7 @@ import io.ebean.annotation.NotNull;
 @Table(name = "\"RAW_MATERIAL\"")
 public class RawMaterial extends Model{
 
+	public static RawMaterialFinder find = new RawMaterialFinder();
 	@Id
 	protected long raw_material_id;
 	

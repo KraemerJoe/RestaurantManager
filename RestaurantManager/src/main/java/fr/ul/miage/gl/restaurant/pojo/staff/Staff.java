@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurantFinder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 
@@ -13,6 +14,8 @@ import io.ebean.annotation.NotNull;
 @Table(name = "\"STAFF\"")
 public class Staff extends Model{
 
+	public static final StaffFinder find = new StaffFinder();
+	
 	@Id
 	protected long staff_id;
 
