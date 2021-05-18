@@ -3,13 +3,9 @@ package fr.ul.miage.gl.restaurant.menus.roles;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.menus.roles.assistant.TakeAnOrderMenu;
-import fr.ul.miage.gl.restaurant.pojo.orders.EnumOrderStat;
-import fr.ul.miage.gl.restaurant.pojo.orders.EnumSessionOrderStat;
-import fr.ul.miage.gl.restaurant.pojo.orders.Order;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
 import fr.ul.miage.gl.restaurant.pojo.tables.EnumTableStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
@@ -40,14 +36,14 @@ public class AssistantMenu extends Menu {
 			break;
 		case 2:
 			List<SessionOrder> list = new ArrayList<SessionOrder>();
-			list = EbeanManager.getInstance().getDb().find(SessionOrder.class).where().not().eq("statut",EnumOrderStat.COMPLET).findList();
+			list = SessionOrder.find.notCompletedOrders();
 			
 			for (SessionOrder session : list) {
 				System.out.println("[TABLE #" + session.getOrder().getSessionClient().getTable_id().getTable_id() + "] " + session.getDish().getName() + " | " + session.getStatut());
 			}
 		case 3:
 			List<TableRestaurant> listTable = new ArrayList<TableRestaurant>();
-			listTable = EbeanManager.getInstance().getDb().find(TableRestaurant.class).orderBy().asc("floor").orderBy().asc("table_id").findList();
+			listTable = TableRestaurant.find.tablesOrdered();
 			for (TableRestaurant table : listTable) {
 				System.out.println("[TABLE #" + table.getTable_id() + "] " + table.getStatut() + " | Floor : " + table.getFloor());
 			}
@@ -55,7 +51,7 @@ public class AssistantMenu extends Menu {
 			break;
 		case 4:
 			List<TableRestaurant> listTableClean = new ArrayList<TableRestaurant>();
-			listTableClean = EbeanManager.getInstance().getDb().find(TableRestaurant.class).orderBy().asc("floor").orderBy().asc("table_id").findList();
+			listTableClean = TableRestaurant.find.tablesOrdered();
 			String tableState="";
 			for (TableRestaurant table : listTableClean) {
 				if(table.getStatut().equals(EnumTableStat.TO_CLEAN)) {
@@ -69,7 +65,7 @@ public class AssistantMenu extends Menu {
 			break;
 		case 5:
 			List<TableRestaurant> listTableAvailable = new ArrayList<TableRestaurant>();
-			listTableAvailable = EbeanManager.getInstance().getDb().find(TableRestaurant.class).orderBy().asc("floor").orderBy().asc("table_id").findList();
+			listTableAvailable = TableRestaurant.find.tablesOrdered();
 			for (TableRestaurant table : listTableAvailable) {
 				if(table.getStatut().equals(EnumTableStat.TO_CLEAN) && table.getStatut().equals(EnumTableStat.FREE)) {
 					System.out.println("[TABLE #" + table.getTable_id() + "] Floor : " + table.getFloor());

@@ -1,6 +1,5 @@
 package fr.ul.miage.gl.restaurant.menus;
 
-import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.managers.SessionManager;
 import fr.ul.miage.gl.restaurant.menus.roles.AssistantMenu;
 import fr.ul.miage.gl.restaurant.menus.roles.ButlerMenu;
@@ -34,7 +33,7 @@ public class MenuLogin extends Menu {
 			String login = MenuUtil.askForString("Enter your login");
 			String password = MenuUtil.askForString("Enter your password");
 			
-			Staff staff = EbeanManager.getInstance().getDb().find(Staff.class).where().eq("login", login).eq("password", password).findOne();
+			Staff staff = Staff.find.credentials(login,password);
 			if(staff != null) {
 				MenuUtil.spacer(30);
 				SessionManager.getInstance().login(staff);

@@ -13,6 +13,8 @@ import io.ebean.Model;
 @Table(name = "\"DISH\"")
 public class Dish extends Model{
 
+	public static final DishFinder find = new DishFinder();
+	
 	@Id
 	protected long dish_id;
 

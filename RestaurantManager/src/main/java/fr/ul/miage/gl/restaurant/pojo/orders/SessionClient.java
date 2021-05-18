@@ -10,16 +10,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
-import io.ebean.Finder;
 import io.ebean.Model;
 
 @Entity
 @Table(name = "\"SESSION_CLIENT\"")
 public class SessionClient extends Model{
 
-	public static Finder<Long, SessionClient> find = new Finder<Long, SessionClient>(SessionClient.class);
+	public static SessionClientFinder find = new SessionClientFinder();
 
 	@Id
 	protected long session_client_id;
@@ -34,7 +32,7 @@ public class SessionClient extends Model{
 
 	public Order createOrder() {
 		Order order = new Order(this);
-		EbeanManager.getInstance().getDb().insert(order);
+		order.save();
 		return order;
 	}
 	

@@ -16,7 +16,9 @@ import io.ebean.Model;
 @Entity
 @Table(name = "\"SESSION_ORDER\"")
 public class SessionOrder extends Model{
-
+	
+	public static SessionOrderFinder find = new SessionOrderFinder();
+	
 	@Id
 	protected long session_order_id;
 

@@ -2,19 +2,15 @@ package fr.ul.miage.gl.restaurant.pojo.orders;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import io.ebean.Model;
 
@@ -48,7 +44,7 @@ public class Order extends Model{
 	public void populateWithDish(ArrayList<Dish> what) {
 		for (Dish dish : what) {
 			SessionOrder sessionOrder = new SessionOrder(dish, this, dish.isForChild());
-			EbeanManager.getInstance().getDb().insert(sessionOrder);
+			sessionOrder.save();
 		}
 	}
 

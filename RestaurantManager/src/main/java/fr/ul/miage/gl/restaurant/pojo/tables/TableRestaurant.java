@@ -8,7 +8,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
@@ -75,8 +74,7 @@ public class TableRestaurant extends Model{
 	}
 	
 	public SessionClient findCurrentSession() {
-		return EbeanManager.getInstance().getDb().find(SessionClient.class).where().eq("table_id", this).orderBy()
-		.desc("date_arrival").findOne();
+		return SessionClient.find.lastSessionByTableId(this.getTable_id());
 	}
 	
 	public String getColor() {

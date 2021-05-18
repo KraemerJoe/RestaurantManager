@@ -3,7 +3,6 @@ package fr.ul.miage.gl.restaurant.menus.roles.assistant;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
@@ -73,7 +72,7 @@ public class TakeAnOrderMenu extends Menu {
 			}
 			
 			to.setBusy();
-			EbeanManager.getInstance().getDb().save(to);
+			to.save();
 			
 			Order order = session.createOrder();
 			order.populateWithDish(what);
@@ -125,8 +124,7 @@ public class TakeAnOrderMenu extends Menu {
 	}
 	
 	public Category askForACategory() {
-		List<Category> categories = EbeanManager.getInstance().getDb().find(Category.class)
-				.findList();
+		List<Category> categories = Category.find.all();
 
 				int compteur = 0;
 				for (Category c : categories) {
@@ -146,9 +144,7 @@ public class TakeAnOrderMenu extends Menu {
 	}
 	
 	public Dish askForADish(Category cat) {
-		List<Dish> dishs = EbeanManager.getInstance().getDb().find(Dish.class)
-				.where()
-				.eq("category",cat).findList();
+		List<Dish> dishs = Dish.find.byCategory(cat);
 
 				int compteur = 0;
 				for (Dish dish : dishs) {
@@ -165,12 +161,11 @@ public class TakeAnOrderMenu extends Menu {
 					Dish dish = dishs.get(dishId);
 					return dish;
 				}
-	}
+	} 
 	
 	public TableRestaurant askForBusyTable() {
-		List<TableRestaurant> tables = EbeanManager.getInstance().getDb().find(TableRestaurant.class)
-				.where()
-				.eq("statut",EnumTableStat.BUSY).findList();
+		List<TableRestaurant> tables = TableRestaurant.find.byStatut(EnumTableStat.BUSY);
+				;
 
 				int compteur = 0;
 				for (TableRestaurant tableRestaurant : tables) {
@@ -195,12 +190,7 @@ public class TakeAnOrderMenu extends Menu {
 	
 	
 	public TableRestaurant askForFreeOrReservedTable() {
-		List<TableRestaurant> tables = EbeanManager.getInstance().getDb().find(TableRestaurant.class)
-				.where()
-				.or(
-				        io.ebean.Expr.eq("statut",EnumTableStat.FREE),
-				        io.ebean.Expr.eq("statut",EnumTableStat.RESERVED)
-				).findList();
+		List<TableRestaurant> tables = TableRestaurant.find.freeOrReserved();
 
 				int compteur = 0;
 				for (TableRestaurant tableRestaurant : tables) {
