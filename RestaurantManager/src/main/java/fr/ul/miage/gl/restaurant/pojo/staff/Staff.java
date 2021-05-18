@@ -6,11 +6,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 
 @Entity
 @Table(name = "\"STAFF\"")
-public class Staff {
+public class Staff extends Model{
 
 	@Id
 	protected long staff_id;

@@ -10,12 +10,15 @@ import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.ebean.EbeanManager;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
+import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 
 @Entity
 @Table(name = "\"TABLE_RESTAURANT\"")
-public class TableRestaurant {
+public class TableRestaurant extends Model{
 
+	public static final TableRestaurantFinder find = new TableRestaurantFinder();
+	  
 	@Id
 	protected long table_id;
 
@@ -67,7 +70,7 @@ public class TableRestaurant {
 	
 	public SessionClient createSession() {
 		SessionClient session = new SessionClient(this, new Date());
-		EbeanManager.getInstance().getDb().insert(session);
+		session.save();
 		return session;
 	}
 	

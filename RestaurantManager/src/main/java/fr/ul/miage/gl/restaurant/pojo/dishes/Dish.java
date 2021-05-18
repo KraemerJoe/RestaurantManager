@@ -7,9 +7,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import io.ebean.Model;
+
 @Entity
 @Table(name = "\"DISH\"")
-public class Dish {
+public class Dish extends Model{
 
 	@Id
 	protected long dish_id;

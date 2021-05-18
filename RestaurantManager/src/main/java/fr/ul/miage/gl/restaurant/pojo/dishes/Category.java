@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 
 @Entity
 @Table(name = "\"CATEGORY\"")
-public class Category {
+public class Category extends Model{
 
 	@Id
 	protected long category_id;

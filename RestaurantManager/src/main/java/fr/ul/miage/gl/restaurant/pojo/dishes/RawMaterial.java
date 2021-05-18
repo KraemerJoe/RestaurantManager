@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 
 @Entity
 @Table(name = "\"RAW_MATERIAL\"")
-public class RawMaterial {
+public class RawMaterial extends Model{
 
 	@Id
 	protected long raw_material_id;

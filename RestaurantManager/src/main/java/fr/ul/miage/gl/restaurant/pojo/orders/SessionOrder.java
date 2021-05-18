@@ -11,10 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
+import io.ebean.Model;
 
 @Entity
 @Table(name = "\"SESSION_ORDER\"")
-public class SessionOrder {
+public class SessionOrder extends Model{
 
 	@Id
 	protected long session_order_id;
