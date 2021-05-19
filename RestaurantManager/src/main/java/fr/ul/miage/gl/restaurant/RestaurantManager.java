@@ -25,6 +25,8 @@ public class RestaurantManager {
 
 	private static void createDBConnection() {
 		EbeanManager.getInstance().initDB();
+		
+		
 	}
 
 	private static void initManagers() {

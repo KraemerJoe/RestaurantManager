@@ -76,7 +76,7 @@ public class TableRestaurant extends Model{
 	}
 	
 	public SessionClient findCurrentSession() {
-		return SessionClient.find.lastSessionByTableId(this.getTable_id());
+		return SessionClient.find.lastSessionByTableId(this);
 	}
 	
 	public String getColor() {

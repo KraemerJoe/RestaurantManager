@@ -51,6 +51,7 @@ public class SessionOrder extends Model{
 	private EnumSessionOrderStat statut;
 
 	public void setReadyToServe() {
+		this.date_completion = new Date();
 		statut = EnumSessionOrderStat.READY_TO_SERVE;
 	}
 
