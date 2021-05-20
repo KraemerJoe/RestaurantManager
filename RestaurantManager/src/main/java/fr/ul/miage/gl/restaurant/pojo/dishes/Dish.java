@@ -1,5 +1,7 @@
 package fr.ul.miage.gl.restaurant.pojo.dishes;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -7,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.NegativeStockException;
 import fr.ul.miage.gl.restaurant.pojo.dishes.finders.DishFinder;
 import io.ebean.Model;
 
@@ -40,7 +43,31 @@ public class Dish extends Model{
 		this.name = name;
 		this.price = price;
 	}
+	
+	public boolean enoughRawMaterial() {
+		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
+		composition.addAll(CompositionDish.finder.compositionOfDish(this));
+		
+		for (CompositionDish compositionDish : composition) {
+			RawMaterial material = compositionDish.getRawMaterial();
+			if(material.getStock() < compositionDish.getQuantity()) return false;
+		}
+		
+		return true;
+	}
 
+	public void decrementStock() throws NegativeStockException {
+		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
+		composition.addAll(CompositionDish.finder.compositionOfDish(this));
+		
+		for (CompositionDish compositionDish : composition) {
+			RawMaterial material = compositionDish.getRawMaterial();
+			if(material.getStock()-compositionDish.getQuantity() < 0) {
+				throw new NegativeStockException("Stock for " + material.getName() + " can't be negative !");
+			}
+		}
+	}
+	
 	public long getDish_id() {
 		return dish_id;
 	}
@@ -80,6 +107,7 @@ public class Dish extends Model{
 	public void setForChild(boolean forChild) {
 		this.forChild = forChild;
 	}
+
 	
 	
 	

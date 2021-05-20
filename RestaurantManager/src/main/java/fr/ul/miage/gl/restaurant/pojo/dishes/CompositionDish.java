@@ -1,17 +1,19 @@
 package fr.ul.miage.gl.restaurant.pojo.dishes;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.ul.miage.gl.restaurant.pojo.dishes.finders.CompositionDishFinder;
 import io.ebean.Model;
 
 @Entity
 @Table(name = "\"COMPOSITION_DISH\"")
 public class CompositionDish extends Model{
 
+	public static CompositionDishFinder finder = new CompositionDishFinder();
+	
 	@ManyToOne @JoinColumn(name = "dish_id")
 	private Dish dish;
 	
