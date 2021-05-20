@@ -44,6 +44,16 @@ public class Dish extends Model{
 		this.price = price;
 	}
 	
+	public String getComposition() {
+		String compo = "(";
+		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
+		composition.addAll(CompositionDish.finder.compositionOfDish(this));
+		for (CompositionDish compositionDish : composition) {
+			compo = compo + compositionDish.getRawMaterial().getName() + " x" + compositionDish.getQuantity() + " | ";
+		}
+		return (compo + ")").replace(" | )", ")");
+	}
+	
 	public boolean enoughRawMaterial() {
 		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
 		composition.addAll(CompositionDish.finder.compositionOfDish(this));
@@ -64,6 +74,8 @@ public class Dish extends Model{
 			RawMaterial material = compositionDish.getRawMaterial();
 			if(material.getStock()-compositionDish.getQuantity() < 0) {
 				throw new NegativeStockException("Stock for " + material.getName() + " can't be negative !");
+			}else {
+				material.decrementStock(compositionDish.getQuantity());
 			}
 		}
 	}
