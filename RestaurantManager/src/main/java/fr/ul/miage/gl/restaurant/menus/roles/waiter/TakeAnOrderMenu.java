@@ -1,4 +1,4 @@
-package fr.ul.miage.gl.restaurant.menus.roles.assistant;
+package fr.ul.miage.gl.restaurant.menus.roles.waiter;
 
 import java.util.ArrayList;
 import java.util.List;
