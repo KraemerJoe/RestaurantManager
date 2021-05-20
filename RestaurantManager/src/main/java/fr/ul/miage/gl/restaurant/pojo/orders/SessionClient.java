@@ -51,6 +51,13 @@ public class SessionClient extends Model{
 		this.date_release = date_release;
 	}
 	
+	public void terminate() {
+		date_release = new Date();
+		this.save();
+		
+		table_id.setToClean();
+		table_id.save();
+	}
 	
 
 	public SessionClient(long session_client_id) {
@@ -89,6 +96,8 @@ public class SessionClient extends Model{
 	public void setDate_release(Date date_release) {
 		this.date_release = date_release;
 	}
+
+
 
 
 

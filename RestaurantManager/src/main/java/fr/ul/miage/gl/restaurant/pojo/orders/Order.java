@@ -13,12 +13,16 @@ import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumOrderStat;
+import fr.ul.miage.gl.restaurant.pojo.orders.finders.OrderFinder;
+import fr.ul.miage.gl.restaurant.pojo.orders.finders.SessionClientFinder;
 import io.ebean.Model;
 
 @Entity
 @Table(name = "\"ORDER\"")
 public class Order extends Model{
 
+	public static OrderFinder find = new OrderFinder();
+	
 	@Id
 	protected long order_id;
 

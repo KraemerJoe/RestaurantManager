@@ -1,6 +1,6 @@
 package fr.ul.miage.gl.restaurant.pojo.orders;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,6 +24,18 @@ public class Invoice extends Model{
 	private double total_price;
 
 	private Date date;
+
+	public Invoice(SessionClient sessionClient, double total_price) {
+		super();
+		this.sessionClient = sessionClient;
+		this.total_price = total_price;
+		this.date = new Date();
+	}
+	
+	public static void createInvoice(SessionClient sessionClient, double total_price) {
+		Invoice invoice = new Invoice(sessionClient, total_price);
+		invoice.save();
+	}
 
 	public long getInvoice_id() {
 		return invoice_id;

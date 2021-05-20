@@ -19,4 +19,6 @@ public class SessionClientFinder extends Finder<Long, SessionClient> {
 
 		return query().where().eq("table_id", id).orderBy().desc("date_arrival").findOne();
 	}
+	
+	
 }
