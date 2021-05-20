@@ -45,6 +45,12 @@ public class CookerMenu extends Menu {
 				compteur++;
 			}
 			
+			
+			if(ordersPending.size() <= 0) {
+				System.out.println("There is no dish.");
+				return;
+			}
+			
 			int dishToServe = MenuUtil.askForPositiveInt("Which dish is ready to be served ?");
 			
 			if(ordersPending.size() <= dishToServe || ordersPending.get(dishToServe) == null) {
