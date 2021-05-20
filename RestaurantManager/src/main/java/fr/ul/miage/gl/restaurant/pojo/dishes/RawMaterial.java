@@ -57,6 +57,11 @@ public class RawMaterial extends Model{
 		this.stock = stock;
 	}
 
+	public void decrementStock(long s) {
+		this.stock = stock - s;
+		this.save();
+	}
+
 	
 
 }

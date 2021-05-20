@@ -54,7 +54,7 @@ public class Order extends Model{
 				dish.decrementStock();
 				sessionOrder.save();
 			} catch (NegativeStockException e) {
-				e.printStackTrace();
+				System.err.println("[NegativeStockException] " + dish.getName() + " was not added to the order.");
 			}
 		}
 	}

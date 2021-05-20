@@ -77,10 +77,6 @@ public class WaiterTableMenu extends Menu {
 				session = to.createSession();
 			}
 
-			RawMaterial raw = RawMaterial.find.byId(1L);
-			raw.setStock(1);
-			raw.save();
-
 			boolean enoughForAllFish = true;
 			System.out.println(" > Verification of stocks...");
 			for (Dish dish : what) {
@@ -172,18 +168,22 @@ public class WaiterTableMenu extends Menu {
 	}
 
 	public Dish askForADish(Category cat) {
-		List<Dish> dishs = Dish.find.byCategory(cat);
+		List<Dish> dishs = Dish.find.byCategoryEnoughStock(cat);
 
 		int compteur = 0;
 		for (Dish dish : dishs) {
-			System.out.println("[" + compteur + "] " + dish.getName() + " - " + dish.getPrice() + "$");
+			System.out.println("[" + compteur + "] " + dish.getName() + " - " + dish.getPrice() + "$ | " + dish.getComposition());
 			compteur++;
 		}
 
+		if(dishs.size() <= 0) {
+			System.err.println("No dish with enough stock in this category.");
+			return null;
+		}
 		int dishId = MenuUtil.askForPositiveInt("Which dish do you want ?");
 
 		if (dishs.size() <= dishId || dishs.get(dishId) == null) {
-			System.out.println("This dish doesn't exist.");
+			System.err.println("This dish doesn't exist.");
 			return null;
 		} else {
 			Dish dish = dishs.get(dishId);
