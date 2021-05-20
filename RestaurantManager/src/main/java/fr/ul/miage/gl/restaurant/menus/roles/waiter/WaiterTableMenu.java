@@ -1,39 +1,43 @@
-package fr.ul.miage.gl.restaurant.menus.roles.assistant;
+package fr.ul.miage.gl.restaurant.menus.roles.waiter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.ul.miage.gl.restaurant.managers.SessionManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
+import fr.ul.miage.gl.restaurant.menus.roles.WaiterMenu;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import fr.ul.miage.gl.restaurant.pojo.orders.Order;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
+import fr.ul.miage.gl.restaurant.pojo.tables.TableAssignment;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
 
-public class TakeAnOrderMenu extends Menu {
+public class WaiterTableMenu extends Menu {
 
-	public static TakeAnOrderMenu instance;
+	public static WaiterTableMenu instance;
+	private TableRestaurant table;
 	
-	public TakeAnOrderMenu() {
-		super("Take an Order - Assistant");
+	public WaiterTableMenu() {
+		super("Manage Table - Waiter");
 		instance = this;
 	}
 
 	@Override
 	public void initMenuItems() {
-		itemList.add(new ItemMenu("New Client", "Select a free or reserved table"));
-		itemList.add(new ItemMenu("Already Client", "Select a busy table"));
+		itemList.add(new ItemMenu("Add a dish", "Add a new dish to the table"));
+		itemList.add(new ItemMenu("Create an invoice", "Cashing out a customer"));
+		itemList.add(new ItemMenu("Back to waiter menu", "Return to main waiter menu"));
 	}
 
 	@Override
 	public void executeChoice(int choice) {
 		switch (choice) {
 		case 1:
-			TableRestaurant tableFree = askForFreeOrReservedTable();
-			if(tableFree == null) return;
+			if(table == null) return;
 			ArrayList<Dish> list = orderOfDish();
 			if(list.isEmpty()) return;
 			boolean confirmOrder = askForConfirmation(list);
@@ -41,19 +45,17 @@ public class TakeAnOrderMenu extends Menu {
 				System.out.println("This order has been canceled.");
 				return;
 			}
-			sendToCooker(tableFree, list);
+			sendToCooker(table, list);
 			break;
 		case 2:
-			TableRestaurant tableBusy = askForBusyTable();
-			if(tableBusy == null) return;	
-			ArrayList<Dish> list2 = orderOfDish();
-			if(list2.isEmpty()) return;
-			boolean confirmOrder2 = askForConfirmation(list2);
-			if(!confirmOrder2) {
-				System.out.println("This order has been canceled.");
-				return;
-			}
-			sendToCooker(tableBusy, list2);
+			
+			boolean invoiced = table.createInvoice();
+			if(invoiced) System.out.println("The invoice for this table has been edited, table is now set as to clean.");
+			else System.err.println("The invoiced has not been created.");
+			
+		break;
+		case 3:
+			WaiterMenu.getInstance().show();
 			break;
 		}
 	}
@@ -214,13 +216,23 @@ public class TakeAnOrderMenu extends Menu {
 	}
 
 	
-	public static TakeAnOrderMenu getInstance() {
-		if (instance == null) instance = new TakeAnOrderMenu();
+	public static WaiterTableMenu getInstance() {
+		if (instance == null) instance = new WaiterTableMenu();
 		return instance;
 	}
 
-	public static void setInstance(TakeAnOrderMenu instance) {
-		TakeAnOrderMenu.instance = instance;
+	public static void setInstance(WaiterTableMenu instance) {
+		WaiterTableMenu.instance = instance;
 	}
+
+	public TableRestaurant getTable() {
+		return table;
+	}
+
+	public void setTable(TableRestaurant table) {
+		this.table = table;
+	}
+	
+	
 	
 }

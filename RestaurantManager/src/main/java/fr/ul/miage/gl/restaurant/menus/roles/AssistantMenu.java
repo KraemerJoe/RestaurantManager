@@ -5,7 +5,7 @@ import java.util.List;
 
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
-import fr.ul.miage.gl.restaurant.menus.roles.assistant.TakeAnOrderMenu;
+import fr.ul.miage.gl.restaurant.menus.roles.waiter.WaiterTableMenu;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
@@ -22,8 +22,6 @@ public class AssistantMenu extends Menu {
 
 	@Override
 	public void initMenuItems() {
-		itemList.add(new ItemMenu("Take an order", "Create a new order for a client"));
-		itemList.add(new ItemMenu("Checkout", "See the evolution of the dishs of each table"));
 		itemList.add(new ItemMenu("Room Occupation", "See the occupation of the room"));
 		itemList.add(new ItemMenu("Tables state", "See if tables are clean or not"));
 		itemList.add(new ItemMenu("Tables that got available", "See which table just got available"));
@@ -34,16 +32,6 @@ public class AssistantMenu extends Menu {
 	public void executeChoice(int choice) {
 		switch (choice) {
 		case 1:
-			TakeAnOrderMenu.getInstance().show();
-			break;
-		case 2:
-			List<SessionOrder> list = new ArrayList<SessionOrder>();
-			list = SessionOrder.find.notCompletedOrders();
-			
-			for (SessionOrder session : list) {
-				System.out.println("[TABLE #" + session.getOrder().getSessionClient().getTable_id().getTable_id() + "] " + session.getDish().getName() + " | " + session.getStatut());
-			}
-		case 3:
 			List<TableRestaurant> listTable = new ArrayList<TableRestaurant>();
 			listTable = TableRestaurant.find.tablesOrdered();
 			for (TableRestaurant table : listTable) {
@@ -51,7 +39,7 @@ public class AssistantMenu extends Menu {
 			}
 			
 			break;
-		case 4:
+		case 2:
 			List<TableRestaurant> listTableClean = new ArrayList<TableRestaurant>();
 			listTableClean = TableRestaurant.find.tablesOrdered();
 			String tableState="";
@@ -65,17 +53,18 @@ public class AssistantMenu extends Menu {
 			}
 			
 			break;
-		case 5:
+		case 3:
 			List<TableRestaurant> listTableAvailable = new ArrayList<TableRestaurant>();
-			listTableAvailable = TableRestaurant.find.tablesOrdered();
+			listTableAvailable = TableRestaurant.find.tablesToClean();
+			
+			if(listTableAvailable.size() <= 0) System.out.println("There is no table that just got available.");
+			
 			for (TableRestaurant table : listTableAvailable) {
-				if(table.getStatut().equals(EnumTableStat.TO_CLEAN) && table.getStatut().equals(EnumTableStat.FREE)) {
-					System.out.println("[TABLE #" + table.getTable_id() + "] Floor : " + table.getFloor());
-				}
+					System.out.println("[TABLE #" + table.getTable_id() + "] Floor : " + table.getFloor() + " " + table.getStatut());
 			}
 			
 			break;
-		case 6:
+		case 4:
 			List<TableRestaurant> listTableToClean = new ArrayList<TableRestaurant>();
 			listTableToClean = TableRestaurant.find.tablesToClean();
 			
