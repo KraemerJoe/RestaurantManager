@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
+import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.NegativeStockException;
 import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumOrderStat;
 import fr.ul.miage.gl.restaurant.pojo.orders.finders.OrderFinder;
 import fr.ul.miage.gl.restaurant.pojo.orders.finders.SessionClientFinder;
@@ -49,7 +50,12 @@ public class Order extends Model{
 	public void populateWithDish(ArrayList<Dish> what) {
 		for (Dish dish : what) {
 			SessionOrder sessionOrder = new SessionOrder(dish, this, dish.isForChild());
-			sessionOrder.save();
+			try {
+				dish.decrementStock();
+				sessionOrder.save();
+			} catch (NegativeStockException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
