@@ -68,6 +68,10 @@ public class TableRestaurant extends Model{
 		}
 		return false;
 	}
+
+	public void setClean() {
+		this.statut = EnumTableStat.FREE;
+	}
 	
 	public SessionClient createSession() {
 		SessionClient session = new SessionClient(this, new Date());
@@ -130,6 +134,7 @@ public class TableRestaurant extends Model{
 	public void setSeats_amount(int seats_amount) {
 		this.seats_amount = seats_amount;
 	}
+
 
 
 
