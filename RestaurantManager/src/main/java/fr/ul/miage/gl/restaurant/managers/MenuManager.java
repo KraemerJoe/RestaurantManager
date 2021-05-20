@@ -9,7 +9,7 @@ import fr.ul.miage.gl.restaurant.menus.roles.ButlerMenu;
 import fr.ul.miage.gl.restaurant.menus.roles.CookerMenu;
 import fr.ul.miage.gl.restaurant.menus.roles.DirectorMenu;
 import fr.ul.miage.gl.restaurant.menus.roles.WaiterMenu;
-import fr.ul.miage.gl.restaurant.menus.roles.assistant.TakeAnOrderMenu;
+import fr.ul.miage.gl.restaurant.menus.roles.waiter.TakeAnOrderMenu;
 
 public class MenuManager {
 	

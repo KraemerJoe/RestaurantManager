@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import fr.ul.miage.gl.restaurant.managers.SessionManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
+import fr.ul.miage.gl.restaurant.menus.roles.waiter.TakeAnOrderMenu;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
 import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumSessionOrderStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableAssignment;
@@ -24,11 +25,12 @@ public class WaiterMenu extends Menu {
 		instance = this;
 	}
 
-	@Override
+	@Override 
 	public void initMenuItems() {
 		itemList.add(new ItemMenu("Status of the restaurant", "See my tables"));
-		itemList.add(new ItemMenu("Create an invoice", "Cashing out a customer"));
+		itemList.add(new ItemMenu("Take an order", "Create a new order for a client"));
 		itemList.add(new ItemMenu("Checkout", "See the evolution of the dishs of each table"));
+		itemList.add(new ItemMenu("Create an invoice", "Cashing out a customer"));
 		itemList.add(new ItemMenu("Set a dish as served", "Mark a dish as served to the client"));
 	}
 
@@ -40,10 +42,21 @@ public class WaiterMenu extends Menu {
 			
 			tables.addAll(TableAssignment.find.assignmentByStaffId(SessionManager.getInstance().getAccount().getStaff_id()));
 			for (TableAssignment ta : tables) {
-				System.out.println(ta.getTable().getColor() + "-[" + ta.getTable().getTable_id() + "] | Floor: " + ta.getTable().getFloor() + " | Seats: " + ta.getTable().getSeats_amount());
+				System.out.println(ta.getTable().getColor() + " [TABLE #" + ta.getTable().getTable_id() + "] | Floor: " + ta.getTable().getFloor() + " | Seats: " + ta.getTable().getSeats_amount());
 			}
 		break;
 		case 2:
+			TakeAnOrderMenu.getInstance().show();
+			break;
+		case 3:
+			List<SessionOrder> list = new ArrayList<SessionOrder>();
+			list = SessionOrder.find.notCompletedOrders();
+			
+			for (SessionOrder session : list) {
+				System.out.println("[TABLE #" + session.getOrder().getSessionClient().getTable_id().getTable_id() + "] " + session.getDish().getName() + " | " + session.getStatut());
+			}
+			break;
+		case 4:
 			ArrayList<TableAssignment> tablesToCash = new ArrayList<TableAssignment>();
 			
 
@@ -71,18 +84,7 @@ public class WaiterMenu extends Menu {
 				else System.out.println("The invoiced has not been created.");
 			}
 		break;
-		case 3:
-			List<SessionOrder> list = new ArrayList<SessionOrder>();
-			list = SessionOrder.find.notCompletedOrders();
-			
-			for (SessionOrder sessionOrder : list) {
-				if(TableAssignment.find.isAssigned(sessionOrder.getOrder().getSessionClient().getTable_id(), SessionManager.getInstance().getAccount())) {
-					System.out.println("[TABLE #" + sessionOrder.getOrder().getSessionClient().getTable_id().getTable_id() + "] " + sessionOrder.getDish().getName() + " | " + sessionOrder.getStatut());
-				}
-			}
-			
-		break;
-		case 4:
+		case 5:
 			List<SessionOrder> listToServ = new ArrayList<SessionOrder>();
 			listToServ = SessionOrder.find.notCompletedOrders();
 			
