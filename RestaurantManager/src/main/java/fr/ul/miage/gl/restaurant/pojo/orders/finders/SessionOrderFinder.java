@@ -1,6 +1,7 @@
 package fr.ul.miage.gl.restaurant.pojo.orders.finders;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import fr.ul.miage.gl.restaurant.pojo.orders.Order;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
@@ -23,8 +24,10 @@ public class SessionOrderFinder extends Finder<Long, SessionOrder> {
 		return query().where().not().eq("statut", EnumOrderStat.COMPLET).findList();
 	}
 	
+	
 	public List<SessionOrder> getSessionOrdersOfOrder(long id) {
 		return query().where().eq("order_id", id).findList();
 	}
 
+	
 }
