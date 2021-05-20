@@ -99,12 +99,12 @@ public class TableRestaurant extends Model{
 		if(total > 0) {
 			Invoice.createInvoice(session, total);
 			session.terminate();
+			return true;
 		}else {
 			System.err.println("The total must be > 0.");
 			return false;
 		}
 		
-		return false;
 	}
 	
 	public boolean canTakeAnOrder() {
