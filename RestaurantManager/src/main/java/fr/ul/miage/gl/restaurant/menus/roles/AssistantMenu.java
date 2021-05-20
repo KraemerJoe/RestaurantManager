@@ -5,7 +5,7 @@ import java.util.List;
 
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
-import fr.ul.miage.gl.restaurant.menus.roles.waiter.TakeAnOrderMenu;
+import fr.ul.miage.gl.restaurant.menus.roles.waiter.WaiterTableMenu;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;

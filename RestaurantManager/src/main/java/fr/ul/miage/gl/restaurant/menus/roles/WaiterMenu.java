@@ -7,13 +7,14 @@ import java.util.stream.Collectors;
 import fr.ul.miage.gl.restaurant.managers.SessionManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
-import fr.ul.miage.gl.restaurant.menus.roles.waiter.TakeAnOrderMenu;
+import fr.ul.miage.gl.restaurant.menus.roles.waiter.WaiterTableMenu;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
 import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumSessionOrderStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableAssignment;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.finders.TableAssignmentFinder;
+import fr.ul.miage.gl.restaurant.pojo.tables.finders.TableRestaurantFinder;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
 
 public class WaiterMenu extends Menu {
@@ -24,13 +25,12 @@ public class WaiterMenu extends Menu {
 		super("Waiter");
 		instance = this;
 	}
-
+ 
 	@Override 
 	public void initMenuItems() {
 		itemList.add(new ItemMenu("Status of the restaurant", "See my tables"));
-		itemList.add(new ItemMenu("Take an order", "Create a new order for a client"));
+		itemList.add(new ItemMenu("Select a table", "Manage a table (add a dish,invoice,...)"));
 		itemList.add(new ItemMenu("Checkout", "See the evolution of the dishs of each table"));
-		itemList.add(new ItemMenu("Create an invoice", "Cashing out a customer"));
 		itemList.add(new ItemMenu("Set a dish as served", "Mark a dish as served to the client"));
 	}
 
@@ -46,7 +46,38 @@ public class WaiterMenu extends Menu {
 			}
 		break;
 		case 2:
-			TakeAnOrderMenu.getInstance().show();
+			
+			ArrayList<TableAssignment> tables2 = new ArrayList<TableAssignment>();
+			ArrayList<TableRestaurant> tablesRes = new ArrayList<TableRestaurant>();
+			
+			tables2.addAll(TableAssignment.find.assignmentByStaffId(SessionManager.getInstance().getAccount().getStaff_id()));
+			
+			for (TableAssignment ta : tables2) {
+				tablesRes.add(ta.getTable());
+			}
+			
+			int compteur2 = 0;
+			for (TableRestaurant ta : tablesRes) {
+				System.out.println("[" + compteur2 + "] " + ta.getColor() + " [TABLE #" + ta.getTable_id() + "] | Floor: " + ta.getFloor() + " | Seats: " + ta.getSeats_amount());
+				compteur2 ++;
+			}
+			
+			if(tablesRes.size() <= 0) {
+				System.out.println("There is no table for that.");
+				return;
+			}
+			
+			int tableToSelect = MenuUtil.askForPositiveInt("Which table do you want to manage ?");
+			
+			if(tablesRes.size() <= tableToSelect || tablesRes.get(tableToSelect) == null) {
+				System.out.println("This table doesn't exist.");
+				return;
+			}else {
+				TableRestaurant table = tablesRes.get(tableToSelect);
+				WaiterTableMenu.getInstance().setTable(table);
+				WaiterTableMenu.getInstance().show();
+			}
+			
 			break;
 		case 3:
 			List<SessionOrder> list = new ArrayList<SessionOrder>();
@@ -57,34 +88,6 @@ public class WaiterMenu extends Menu {
 			}
 			break;
 		case 4:
-			ArrayList<TableAssignment> tablesToCash = new ArrayList<TableAssignment>();
-			
-
-			tablesToCash.addAll(TableAssignment.find.getAssignedBusyTables(SessionManager.getInstance().getAccount().getStaff_id()));
-			
-			int compteur = 0;
-			for (TableAssignment ta : tablesToCash) {
-				System.out.println("[" + compteur + "] " + ta.getTable().getColor() + "[" + ta.getTable().getTable_id() + "] | Floor: " + ta.getTable().getFloor() + " | Seats: " + ta.getTable().getSeats_amount() + " | " + ta.getTable().getStatut());
-				compteur++;
-			}
-			if(tablesToCash.size() <= 0) {
-				System.out.println("There is no client to collect.");
-				return;
-			}
-			
-			int clientToCollect = MenuUtil.askForPositiveInt("Which table do you want to collect ?");
-			
-			if(tablesToCash.size() <= clientToCollect || tablesToCash.get(clientToCollect) == null) {
-				System.out.println("This table doesn't exist.");
-				return;
-			}else {
-				TableRestaurant table = tablesToCash.get(clientToCollect).getTable();
-				boolean invoiced = table.createInvoice();
-				if(invoiced) System.out.println("The invoice for this table has been edited, table is now set as to clean.");
-				else System.out.println("The invoiced has not been created.");
-			}
-		break;
-		case 5:
 			List<SessionOrder> listToServ = new ArrayList<SessionOrder>();
 			listToServ = SessionOrder.find.notCompletedOrders();
 			

@@ -9,7 +9,7 @@ import fr.ul.miage.gl.restaurant.menus.roles.ButlerMenu;
 import fr.ul.miage.gl.restaurant.menus.roles.CookerMenu;
 import fr.ul.miage.gl.restaurant.menus.roles.DirectorMenu;
 import fr.ul.miage.gl.restaurant.menus.roles.WaiterMenu;
-import fr.ul.miage.gl.restaurant.menus.roles.waiter.TakeAnOrderMenu;
+import fr.ul.miage.gl.restaurant.menus.roles.waiter.WaiterTableMenu;
 
 public class MenuManager {
 	
@@ -35,7 +35,7 @@ public class MenuManager {
 		menus.add(new CookerMenu());
 		menus.add(new DirectorMenu());
 		menus.add(new WaiterMenu());
-		menus.add(new TakeAnOrderMenu());
+		menus.add(new WaiterTableMenu());
 	}
 
 	public static MenuManager getInstance() {
