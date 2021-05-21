@@ -122,7 +122,7 @@ public class WaiterTableMenu extends Menu {
 
 		boolean finish = false;
 		while (!finish) {
-			Category cat = askForACategory();
+			Category cat = Category.askForACategory();
 			if (cat != null) {
 				Dish dish = askForADish(cat);
 				if (dish != null) {
@@ -145,26 +145,6 @@ public class WaiterTableMenu extends Menu {
 		}
 
 		return choosedDishes;
-	}
-
-	public Category askForACategory() {
-		List<Category> categories = Category.find.all();
-
-		int compteur = 0;
-		for (Category c : categories) {
-			System.out.println("[" + compteur + "] " + c.getName());
-			compteur++;
-		}
-
-		int categoryId = MenuUtil.askForPositiveInt("Which category do you want ?");
-
-		if (categories.size() <= categoryId || categories.get(categoryId) == null) {
-			System.out.println("This category doesn't exist.");
-			return null;
-		} else {
-			Category c = categories.get(categoryId);
-			return c;
-		}
 	}
 
 	public Dish askForADish(Category cat) {

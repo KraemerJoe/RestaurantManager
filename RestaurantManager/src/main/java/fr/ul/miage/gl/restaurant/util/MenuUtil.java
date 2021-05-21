@@ -28,6 +28,21 @@ public class MenuUtil {
 		return choice;
 	}
 	
+	public static double askForPositiveDouble(String question) {
+
+		int choice = -1;
+		while (choice == -1 && choice <= 0) {
+			try {
+				System.out.println(question);
+				Scanner input = new Scanner(System.in);
+				choice = input.nextInt();
+			} catch (InputMismatchException e) {
+				System.err.println("An error happend with your entry !");
+			}
+		}
+		return choice;
+	}
+	
 	public static int askForPositiveInt(String question) {
 
 		int choice = -1;
@@ -53,6 +68,21 @@ public class MenuUtil {
 				choice = input.nextLine();
 			} catch (InputMismatchException e) {
 				System.err.println("An error happend with your entry !");
+			}
+		}
+		return choice;
+	}
+	
+	public static String askForOneWordString(String question) {
+		String choice = "";
+
+		while (choice.trim().equalsIgnoreCase("") || choice.trim().length() <= 1 || choice.trim().split(" ").length > 1) {
+			try {
+				System.out.println(question);
+				Scanner input = new Scanner(System.in);
+				choice = input.nextLine();
+			} catch (InputMismatchException e) {
+				System.err.println("An error happend with your entry ! One word only.");
 			}
 		}
 		return choice;

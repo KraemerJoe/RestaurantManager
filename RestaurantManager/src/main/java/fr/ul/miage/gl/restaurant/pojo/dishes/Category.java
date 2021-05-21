@@ -1,10 +1,13 @@
 package fr.ul.miage.gl.restaurant.pojo.dishes;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.pojo.dishes.finders.CategoryFinder;
+import fr.ul.miage.gl.restaurant.util.MenuUtil;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 
@@ -33,4 +36,24 @@ public class Category extends Model{
 		this.name = name;
 	}
 
+	public static Category askForACategory() {
+		List<Category> categories = Category.find.all();
+
+		int compteur = 0;
+		for (Category c : categories) {
+			System.out.println("[" + compteur + "] " + c.getName());
+			compteur++;
+		}
+
+		int categoryId = MenuUtil.askForPositiveInt("Which category do you want ?");
+
+		if (categories.size() <= categoryId || categories.get(categoryId) == null) {
+			System.out.println("This category doesn't exist.");
+			return null;
+		} else {
+			Category c = categories.get(categoryId);
+			return c;
+		}
+	}
+	
 }
