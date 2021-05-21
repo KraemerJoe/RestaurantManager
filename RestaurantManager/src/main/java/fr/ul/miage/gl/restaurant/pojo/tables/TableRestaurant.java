@@ -68,7 +68,7 @@ public class TableRestaurant extends Model{
 		return false;
 	}
 	
-	public boolean createInvoice() {
+	public boolean createInvoice(boolean lunch) {
 		SessionClient session = findCurrentSession();
 		if(session == null || !session.getTable_id().isBusy()) {
 			System.err.println("The table [" + table_id + "] has no session or isn't busy.");
@@ -97,7 +97,7 @@ public class TableRestaurant extends Model{
 		MenuUtil.line();
 		
 		if(total > 0) {
-			Invoice.createInvoice(session, total);
+			Invoice.createInvoice(session, total, lunch);
 			session.terminate();
 			return true;
 		}else {
