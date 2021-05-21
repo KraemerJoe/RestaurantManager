@@ -24,16 +24,19 @@ public class Invoice extends Model{
 	private double total_price;
 
 	private Date date;
+	
+	private boolean lunch;
 
-	public Invoice(SessionClient sessionClient, double total_price) {
+	public Invoice(SessionClient sessionClient, double total_price, boolean lunch) {
 		super();
 		this.sessionClient = sessionClient;
 		this.total_price = total_price;
 		this.date = new Date();
+		this.lunch = lunch;
 	}
 	
-	public static void createInvoice(SessionClient sessionClient, double total_price) {
-		Invoice invoice = new Invoice(sessionClient, total_price);
+	public static void createInvoice(SessionClient sessionClient, double total_price, boolean lunch) {
+		Invoice invoice = new Invoice(sessionClient, total_price, lunch);
 		invoice.save();
 	}
 
@@ -68,5 +71,15 @@ public class Invoice extends Model{
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	public boolean isLunch() {
+		return lunch;
+	}
+
+	public void setLunch(boolean lunch) {
+		this.lunch = lunch;
+	}
+	
+	
 
 }

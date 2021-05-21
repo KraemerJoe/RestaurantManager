@@ -51,8 +51,13 @@ public class WaiterTableMenu extends Menu {
 			sendToCooker(table, list);
 			break;
 		case 2:
-
-			boolean invoiced = table.createInvoice();
+			
+			boolean lunch = true;
+			int yesOrNo = MenuUtil.askForYesOrNo("Is that for the lunch ? ( no = dinner) ");
+			if(yesOrNo == 1) lunch = true;
+			else lunch = false;
+			
+			boolean invoiced = table.createInvoice(lunch);
 			if (invoiced)
 				System.out.println("The invoice for this table has been edited, table is now set as to clean.");
 			else
