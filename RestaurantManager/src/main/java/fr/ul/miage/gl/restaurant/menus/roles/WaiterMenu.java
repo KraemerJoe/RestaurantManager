@@ -7,6 +7,7 @@ import fr.ul.miage.gl.restaurant.managers.SessionManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.menus.roles.waiter.WaiterTableMenu;
+import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
 import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumSessionOrderStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableAssignment;
@@ -28,6 +29,7 @@ public class WaiterMenu extends Menu {
 		itemList.add(new ItemMenu("Select a table", "Manage a table (add a dish,invoice,...)"));
 		itemList.add(new ItemMenu("Checkout", "See the evolution of the dishs of each table"));
 		itemList.add(new ItemMenu("Set a dish as served", "Mark a dish as served to the client"));
+		itemList.add(new ItemMenu("Menu of the day", "See menu of the day"));
 	}
 
 	@Override
@@ -125,6 +127,14 @@ public class WaiterMenu extends Menu {
 				System.out.println("The dish has been marked has served !");
 			}
 
+			break;
+		case 5:
+			ArrayList<Dish> dishes = new ArrayList<Dish>();
+			dishes.addAll(Dish.find.menuOfTheDay());
+
+			for (Dish o : dishes) {
+				System.out.println(o.getName() + " " + o.getPrice() + "$");
+			}
 			break;
 		}
 	}
