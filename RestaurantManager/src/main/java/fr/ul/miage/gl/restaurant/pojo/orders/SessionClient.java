@@ -32,6 +32,8 @@ public class SessionClient extends Model{
 	private Date date_release;
 
 	public Order createOrder() {
+		table_id.setBusy();
+		table_id.save();
 		Order order = new Order(this);
 		order.save();
 		return order;
