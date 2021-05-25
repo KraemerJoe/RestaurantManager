@@ -115,6 +115,11 @@ public class TableRestaurant extends Model{
 		return false;
 	}
 
+	public void setNeedToBeClean() {
+		this.statut = EnumTableStat.TO_CLEAN;
+		this.save();
+	}
+	
 	public void setClean() {
 		this.statut = EnumTableStat.FREE;
 		save();
