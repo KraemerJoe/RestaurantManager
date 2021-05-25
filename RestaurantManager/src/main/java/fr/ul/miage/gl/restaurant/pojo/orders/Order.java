@@ -15,7 +15,6 @@ import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.NegativeStockException;
 import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumOrderStat;
 import fr.ul.miage.gl.restaurant.pojo.orders.finders.OrderFinder;
-import fr.ul.miage.gl.restaurant.pojo.orders.finders.SessionClientFinder;
 import io.ebean.Model;
 
 @Entity

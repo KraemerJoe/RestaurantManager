@@ -1,6 +1,7 @@
 package fr.ul.miage.gl.restaurant.pojo.orders;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,12 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.ul.miage.gl.restaurant.pojo.orders.finders.InvoiceFinder;
 import io.ebean.Model;
 
 @Entity
 @Table(name = "\"INVOICE\"")
 public class Invoice extends Model{
 
+	public static InvoiceFinder find = new InvoiceFinder();
+	
 	@Id
 	protected long invoice_id;
 
@@ -38,6 +42,26 @@ public class Invoice extends Model{
 	public static void createInvoice(SessionClient sessionClient, double total_price, boolean lunch) {
 		Invoice invoice = new Invoice(sessionClient, total_price, lunch);
 		invoice.save();
+	}
+	
+	public static double totalOfReceipt(List<Invoice> invoices) {
+		double total = 0;
+		for (Invoice invoice : invoices) {
+			total = total + invoice.getTotal_price();
+		}
+		return total;
+	}
+	
+	public static double weeklyReceipt() {
+		return totalOfReceipt(find.ofTheWeek());
+	}
+	
+	public static double monthlyReceipt() {
+		return totalOfReceipt(find.ofTheMonth());
+	}
+	
+	public static double dailyReceipt() {
+		return totalOfReceipt(find.ofTheDay());
 	}
 
 	public long getInvoice_id() {

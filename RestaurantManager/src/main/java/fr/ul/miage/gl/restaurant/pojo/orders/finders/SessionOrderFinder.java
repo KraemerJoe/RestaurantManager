@@ -1,9 +1,7 @@
 package fr.ul.miage.gl.restaurant.pojo.orders.finders;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import fr.ul.miage.gl.restaurant.pojo.orders.Order;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
 import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumOrderStat;
 import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumSessionOrderStat;

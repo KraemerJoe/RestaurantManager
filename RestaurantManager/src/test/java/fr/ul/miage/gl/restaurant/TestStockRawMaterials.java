@@ -48,6 +48,9 @@ public class TestStockRawMaterials {
 			dishs.add(dish);
 
 			assertDoesNotThrow(() -> dish.decrementStock());
+			
+			
+
 		});
 	}
 	
@@ -59,8 +62,9 @@ public class TestStockRawMaterials {
 		final Dish dish = new Dish(cat, "Test", 10.0);
 		final RawMaterial raw = new RawMaterial("Test", 100);
 		final CompositionDish compo = new CompositionDish(dish, raw, 10000);
-
-
+		final TableRestaurant table = new TableRestaurant(EnumTableStat.FREE, 0, 2);
+		final SessionClient session = new SessionClient(table, new Date());
+		
 		DelegateEbeanServer mock = new DelegateEbeanServer();
 		mock.withPersisting(true);
 
@@ -70,11 +74,17 @@ public class TestStockRawMaterials {
 			dish.save();
 			raw.save();
 			compo.save();
-
+			table.save();
+			session.save();
+			Order order = session.createOrder();
+			
 			ArrayList<Dish> dishs = new ArrayList<Dish>();
 			dishs.add(dish);
 
 			assertThrows(NegativeStockException.class, () -> dish.decrementStock());
+			
+			
+
 		});
 	}
 }
