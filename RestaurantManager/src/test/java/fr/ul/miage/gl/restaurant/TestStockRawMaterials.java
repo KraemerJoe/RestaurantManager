@@ -46,6 +46,24 @@ public class TestStockRawMaterials {
 	}
 
 	@Test
+	@DisplayName("Ensure stocks > Long.MAX_VALUE throw NegativeStockException")
+	public void testStockLargerThanLongMaxValueIsNegative() {
+
+		final RawMaterial raw = new RawMaterial("Test", 100);
+		
+
+		DelegateEbeanServer mock = new DelegateEbeanServer();
+		mock.withPersisting(true);
+
+		MockiEbean.runWithMock(mock, () -> {
+
+			raw.save();
+			assertThrows(NegativeStockException.class, () -> raw.setNewStock(Long.MAX_VALUE+1));
+
+		});
+	}
+	
+	@Test
 	@DisplayName("Ensure stocks are always >= 0 and throw NegativeStockException")
 	public void testNegativeStocks() {
 
