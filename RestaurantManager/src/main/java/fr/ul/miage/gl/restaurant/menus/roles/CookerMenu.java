@@ -1,9 +1,9 @@
 package fr.ul.miage.gl.restaurant.menus.roles;
- 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
- 
+
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
@@ -13,9 +13,9 @@ import fr.ul.miage.gl.restaurant.pojo.dishes.PreparationTimeDish;
 import fr.ul.miage.gl.restaurant.pojo.dishes.RawMaterial;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
- 
+
 public class CookerMenu extends Menu {
- 
+
     public static CookerMenu instance;
  
     public CookerMenu() {

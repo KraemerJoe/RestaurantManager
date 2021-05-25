@@ -62,7 +62,7 @@ public class WaiterTableMenu extends Menu {
 				System.out.println("The invoice for this table has been edited, table is now set as to clean.");
 			else
 				System.err.println("The invoiced has not been created.");
-
+			
 			break;
 		case 3:
 			WaiterMenu.getInstance().show();

@@ -28,8 +28,10 @@ public class SessionOrderFinder extends Finder<Long, SessionOrder> {
 	public List<SessionOrder> getSessionOrdersOfOrder(long id) {
 		return query().where().eq("order_id", id).findList();
 	}
-
+	
 	public List<SessionOrder> allWhereTime() {
         return query().where().isNotNull("date_completion").findList();
     }
+
+	
 }
