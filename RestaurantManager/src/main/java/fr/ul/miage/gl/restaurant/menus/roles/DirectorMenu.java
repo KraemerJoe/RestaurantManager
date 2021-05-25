@@ -1,13 +1,13 @@
 package fr.ul.miage.gl.restaurant.menus.roles;
  
 import java.util.ArrayList;
- 
+
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
+import fr.ul.miage.gl.restaurant.menus.roles.director.DirectorStatsMenu;
 import fr.ul.miage.gl.restaurant.pojo.dishes.RawMaterial;
 import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
 import fr.ul.miage.gl.restaurant.pojo.staff.enums.EnumRoles;
-import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
  
 public class DirectorMenu extends Menu {
@@ -23,6 +23,7 @@ public class DirectorMenu extends Menu {
     public void initMenuItems() {
         itemList.add(new ItemMenu("Stocks", "See all current stocks"));
         itemList.add(new ItemMenu("Create a staff", "Add a new staff to the team"));
+        itemList.add(new ItemMenu("Stats","Access to director's stats"));
     }
  
     @Override
@@ -76,7 +77,9 @@ public class DirectorMenu extends Menu {
             }else {
                 System.err.println("The creation was cancelled.");
             }
-            
+        case 3:
+        	DirectorStatsMenu.getInstance().show();
+        	break;
         default:
             break;
  
