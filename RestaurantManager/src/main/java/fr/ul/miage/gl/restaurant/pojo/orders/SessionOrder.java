@@ -59,6 +59,9 @@ public class SessionOrder extends Model{
 		statut = EnumSessionOrderStat.SERVED;
 		save();
 	}
+	
+
+	
 
 	public Dish getDish() {
 		return dish;
@@ -116,6 +119,7 @@ public class SessionOrder extends Model{
 		this.session_order_id = session_order_id;
 	}
 
+	
 
 
 }
