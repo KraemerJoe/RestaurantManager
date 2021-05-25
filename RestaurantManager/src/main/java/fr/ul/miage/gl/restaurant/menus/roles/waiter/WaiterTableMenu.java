@@ -94,8 +94,6 @@ public class WaiterTableMenu extends Menu {
 			}
 
 			if (enoughForAllFish) {
-				to.setBusy();
-				to.save();
 
 				Order order = session.createOrder();
 				order.populateWithDish(what);

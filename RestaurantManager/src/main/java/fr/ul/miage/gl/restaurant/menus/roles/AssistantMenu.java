@@ -87,7 +87,6 @@ public class AssistantMenu extends Menu {
 			}else {
 				TableRestaurant table = listTableToClean.get(tableToClean);
 				table.setClean();
-				table.save();
 				System.out.println("The table has been marked as clean and is now free !");
 			}
 			

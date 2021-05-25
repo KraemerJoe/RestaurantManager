@@ -117,6 +117,7 @@ public class TableRestaurant extends Model{
 
 	public void setClean() {
 		this.statut = EnumTableStat.FREE;
+		save();
 	}
 	
 	public boolean isBusy() {
