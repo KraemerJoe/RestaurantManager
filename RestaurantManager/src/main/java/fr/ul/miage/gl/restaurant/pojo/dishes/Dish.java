@@ -33,6 +33,8 @@ public class Dish extends Model {
 
 	@Transient
 	private boolean forChild;
+	
+	private boolean menu;
 
 	public Dish(long dish_id) {
 		super();
@@ -78,6 +80,11 @@ public class Dish extends Model {
 			material.decrementStock(compositionDish.getQuantity());
 		}
 	}
+	
+	public void setMenuOfTheDay(boolean yesOrNo) {
+		this.menu = yesOrNo;
+		save();
+	}
 
 	public long getDish_id() {
 		return dish_id;
@@ -118,5 +125,15 @@ public class Dish extends Model {
 	public void setForChild(boolean forChild) {
 		this.forChild = forChild;
 	}
+
+	public boolean isMenuOfTheDay() {
+		return menu;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
+	
 
 }

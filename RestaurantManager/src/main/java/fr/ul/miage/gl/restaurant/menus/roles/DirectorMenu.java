@@ -6,6 +6,7 @@ import fr.ul.miage.gl.restaurant.managers.SessionManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.menus.roles.director.DirectorStatsMenu;
+import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import fr.ul.miage.gl.restaurant.pojo.dishes.RawMaterial;
 import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.NegativeStockException;
 import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.StockOverFlowException;
@@ -30,6 +31,7 @@ public class DirectorMenu extends Menu {
 		itemList.add(new ItemMenu("Create a staff", "Add a new staff to the team"));
 		itemList.add(new ItemMenu("Edit a staff", "Edit role of a staff"));
 		itemList.add(new ItemMenu("Stats", "Access to director's stats"));
+		itemList.add(new ItemMenu("Menu of the day", "Edit menu of the day"));
 	}
 
 	@Override
@@ -173,6 +175,36 @@ public class DirectorMenu extends Menu {
 			break;
 		case 6:
 			DirectorStatsMenu.getInstance().show();
+			break;
+		case 7:
+			ArrayList<Dish> dishes = new ArrayList<Dish>();
+			dishes.addAll(Dish.find.all());
+
+			int compteur11 = 0;
+			for (Dish o : dishes) {
+				System.out.println("[" + compteur11 + "] " + (o.isMenuOfTheDay() ? "> [Menu Of The Day] " : "> [] ") + o.getName());
+				compteur11++;
+			}
+
+			if (dishes.size() <= 0) {
+				System.out.println("There is no dish.");
+				return;
+			}
+
+			int d = MenuUtil.askForPositiveInt("Which dish do you want to set/remove as a menu of the day ?");
+
+			if (dishes.size() <= d || dishes.get(d) == null) {
+				System.out.println("This dish doesn't exist.");
+				return;
+			} else {
+				Dish dd = dishes.get(d);
+				int yesOrNoD = MenuUtil.askForYesOrNo("Do you want to set this dish in the menu of day list ?");
+				if(yesOrNoD == 1) {
+					dd.setMenuOfTheDay(true);
+				}else {
+					dd.setMenuOfTheDay(false);
+				}
+			}
 			break;
 		default:
 			break;
