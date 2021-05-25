@@ -7,6 +7,8 @@ import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.menus.roles.director.DirectorStatsMenu;
 import fr.ul.miage.gl.restaurant.pojo.dishes.RawMaterial;
+import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.NegativeStockException;
+import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.StockOverFlowException;
 import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
 import fr.ul.miage.gl.restaurant.pojo.staff.enums.EnumRoles;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
@@ -23,6 +25,7 @@ public class DirectorMenu extends Menu {
 	@Override
 	public void initMenuItems() {
 		itemList.add(new ItemMenu("Stocks", "See all current stocks"));
+		itemList.add(new ItemMenu("Manage Stocks", "Edit stocks"));
 		itemList.add(new ItemMenu("Details of staff", "See the details of a staff"));
 		itemList.add(new ItemMenu("Create a staff", "Add a new staff to the team"));
 		itemList.add(new ItemMenu("Edit a staff", "Edit role of a staff"));
@@ -41,6 +44,38 @@ public class DirectorMenu extends Menu {
 
 			break;
 		case 2:
+			
+			int compteur3 = 0;
+			ArrayList<RawMaterial> raws = new ArrayList<RawMaterial>();
+			raws.addAll(RawMaterial.find.all());
+			
+			for (RawMaterial o : raws) {
+				System.out.println("[" + compteur3 + "] " + o.getName() + " | Stocks " + o.getStock());
+				compteur3++;
+			}
+
+			if (raws.size() <= 0) {
+				System.out.println("There is no raw material.");
+				return;
+			}
+
+			int rawC = MenuUtil.askForPositiveInt("Which raw material do you want to edit the stock ?");
+
+			if (raws.size() <= rawC || raws.get(rawC) == null) {
+				System.out.println("This raw material doesn't exist.");
+				return;
+			} else {
+				RawMaterial s = raws.get(rawC);
+				long stock = MenuUtil.askForPositiveLong("How much do you want to set the stock at ?");
+				try {
+					s.setNewStock(stock);
+				} catch (NegativeStockException | StockOverFlowException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			break;
+		case 3:
 			ArrayList<Staff> staffs = new ArrayList<Staff>();
 			staffs.addAll(Staff.find.all());
 
@@ -70,7 +105,7 @@ public class DirectorMenu extends Menu {
 
 			}
 			break;
-		case 3:
+		case 4:
 			String name = MenuUtil.askForString("Enter the name of the staff.");
 			String surname = MenuUtil.askForString("Enter the surname of the staff.");
 			String login = MenuUtil.askForString("Enter the login of the staff.");
@@ -96,7 +131,7 @@ public class DirectorMenu extends Menu {
 			} else {
 				System.err.println("The creation was cancelled.");
 			}
-		case 4:
+		case 5:
 			ArrayList<Staff> staffs1 = new ArrayList<Staff>();
 			staffs1.addAll(Staff.find.all());
 
@@ -136,7 +171,7 @@ public class DirectorMenu extends Menu {
 			}
 
 			break;
-		case 5:
+		case 6:
 			DirectorStatsMenu.getInstance().show();
 			break;
 		default:

@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.NegativeStockException;
+import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.StockOverFlowException;
 import fr.ul.miage.gl.restaurant.pojo.dishes.finders.DishFinder;
 import io.ebean.Model;
 
@@ -68,17 +69,13 @@ public class Dish extends Model {
 		return true;
 	}
 
-	public void decrementStock() throws NegativeStockException {
+	public void decrementStock() throws NegativeStockException, StockOverFlowException {
 		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
 		composition.addAll(CompositionDish.finder.compositionOfDish(this));
 
 		for (CompositionDish compositionDish : composition) {
 			RawMaterial material = compositionDish.getRawMaterial();
-			if (material.getStock() - compositionDish.getQuantity() < 0) {
-				throw new NegativeStockException("Stock for " + material.getName() + " can't be negative !");
-			} else {
-				material.decrementStock(compositionDish.getQuantity());
-			}
+			material.decrementStock(compositionDish.getQuantity());
 		}
 	}
 

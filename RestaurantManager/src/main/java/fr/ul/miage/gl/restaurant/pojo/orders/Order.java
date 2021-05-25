@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.NegativeStockException;
+import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.StockOverFlowException;
 import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumOrderStat;
 import fr.ul.miage.gl.restaurant.pojo.orders.finders.OrderFinder;
 import io.ebean.Model;
@@ -50,8 +51,8 @@ public class Order extends Model {
 			try {
 				dish.decrementStock();
 				sessionOrder.save();
-			} catch (NegativeStockException e) {
-				System.err.println("[NegativeStockException] " + dish.getName() + " was not added to the order.");
+			} catch (NegativeStockException | StockOverFlowException e) {
+				System.err.println(e);
 			}
 		}
 	}
