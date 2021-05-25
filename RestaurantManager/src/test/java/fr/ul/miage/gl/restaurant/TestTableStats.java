@@ -1,15 +1,13 @@
 package fr.ul.miage.gl.restaurant;
 
 import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.rules.ExpectedException;
 
 import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
 import fr.ul.miage.gl.restaurant.pojo.dishes.CompositionDish;
@@ -23,17 +21,18 @@ import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
 import io.ebean.MockiEbean;
 import io.ebean.mocker.DelegateEbeanServer;
 
-public class TestStockRawMaterials {
-
+public class TestTableStats {
+	
 	@Test
-	@DisplayName("Ensure stocks decrement doesn't throw NegativeStockException if no required")
-	public void testNoNegativeStocks() {
+	@DisplayName("Ensure a table is set as TO_CLEAN after order is terminated")
+	public void testToCleanIfTerminated() {
 
 		final Category cat = new Category("Test");
 		final Dish dish = new Dish(cat, "Test", 10.0);
 		final RawMaterial raw = new RawMaterial("Test", 100);
 		final CompositionDish compo = new CompositionDish(dish, raw, 1);
-
+		final TableRestaurant table = new TableRestaurant(EnumTableStat.FREE, 0, 2);
+		final SessionClient session = new SessionClient(table, new Date());
 		DelegateEbeanServer mock = new DelegateEbeanServer();
 		mock.withPersisting(true);
 
@@ -43,38 +42,39 @@ public class TestStockRawMaterials {
 			dish.save();
 			raw.save();
 			compo.save();
+			table.save();
+			session.save();
+			Order order = session.createOrder();
 			
 			ArrayList<Dish> dishs = new ArrayList<Dish>();
 			dishs.add(dish);
 
-			assertDoesNotThrow(() -> dish.decrementStock());
+			order.populateWithDish(dishs);
+			session.terminate();
+			
+			assertEquals(table.getStatut(), EnumTableStat.TO_CLEAN);
+
 		});
 	}
 	
 	@Test
-	@DisplayName("Ensure stocks are always >= 0 and throw NegativeStockException")
-	public void testNegativeStocks() {
+	@DisplayName("Ensure clean method set table on FREE")
+	public void testCleanMethod() {
 
-		final Category cat = new Category("Test");
-		final Dish dish = new Dish(cat, "Test", 10.0);
-		final RawMaterial raw = new RawMaterial("Test", 100);
-		final CompositionDish compo = new CompositionDish(dish, raw, 10000);
-
+		
+		final TableRestaurant table = new TableRestaurant(EnumTableStat.TO_CLEAN, 0, 2);
 
 		DelegateEbeanServer mock = new DelegateEbeanServer();
 		mock.withPersisting(true);
 
 		MockiEbean.runWithMock(mock, () -> {
 
-			cat.save();
-			dish.save();
-			raw.save();
-			compo.save();
+			table.save();
+			table.setClean();
+			
+			assertEquals(table.getStatut(), EnumTableStat.FREE);
+			
 
-			ArrayList<Dish> dishs = new ArrayList<Dish>();
-			dishs.add(dish);
-
-			assertThrows(NegativeStockException.class, () -> dish.decrementStock());
 		});
 	}
 }

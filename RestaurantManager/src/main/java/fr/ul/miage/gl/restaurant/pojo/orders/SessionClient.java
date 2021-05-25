@@ -56,9 +56,8 @@ public class SessionClient extends Model{
 	public void terminate() {
 		date_release = new Date();
 		this.save();
-		
-		table_id.setToClean();
-		table_id.save();
+		table_id.setNeedToBeClean();
+		System.out.println(table_id.getTable_id() + " pourtant on va ici et " + table_id.getStatut());
 	}
 	
 

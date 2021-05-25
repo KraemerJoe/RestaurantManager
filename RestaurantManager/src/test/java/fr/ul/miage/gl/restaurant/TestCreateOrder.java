@@ -1,22 +1,16 @@
 package fr.ul.miage.gl.restaurant;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
 import java.util.Date;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.rules.ExpectedException;
 
 import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
 import fr.ul.miage.gl.restaurant.pojo.dishes.CompositionDish;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
 import fr.ul.miage.gl.restaurant.pojo.dishes.RawMaterial;
-import fr.ul.miage.gl.restaurant.pojo.dishes.exceptions.NegativeStockException;
 import fr.ul.miage.gl.restaurant.pojo.orders.Order;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
