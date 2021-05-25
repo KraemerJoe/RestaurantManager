@@ -13,16 +13,16 @@ import io.ebean.annotation.NotNull;
 
 @Entity
 @Table(name = "\"CATEGORY\"")
-public class Category extends Model{
-	
+public class Category extends Model {
+
 	public static final CategoryFinder find = new CategoryFinder();
-	
+
 	@Id
 	protected long category_id;
-	
+
 	@NotNull
 	private String name;
-	
+
 	public Category(String name) {
 		super();
 		this.name = name;
@@ -55,5 +55,5 @@ public class Category extends Model{
 			return c;
 		}
 	}
-	
+
 }

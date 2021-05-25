@@ -15,23 +15,24 @@ import io.ebean.Model;
 
 @Entity
 @Table(name = "\"DISH\"")
-public class Dish extends Model{
+public class Dish extends Model {
 
 	public static final DishFinder find = new DishFinder();
-	
+
 	@Id
 	protected long dish_id;
 
-	@ManyToOne @JoinColumn(name = "category_id")
+	@ManyToOne
+	@JoinColumn(name = "category_id")
 	private Category category;
-	
+
 	private String name;
-	
+
 	private double price;
 
 	@Transient
 	private boolean forChild;
-	
+
 	public Dish(long dish_id) {
 		super();
 		this.dish_id = dish_id;
@@ -43,7 +44,7 @@ public class Dish extends Model{
 		this.name = name;
 		this.price = price;
 	}
-	
+
 	public String getComposition() {
 		String compo = "(";
 		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
@@ -53,33 +54,34 @@ public class Dish extends Model{
 		}
 		return (compo + ")").replace(" | )", ")");
 	}
-	
+
 	public boolean enoughRawMaterial() {
 		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
 		composition.addAll(CompositionDish.finder.compositionOfDish(this));
-		
+
 		for (CompositionDish compositionDish : composition) {
 			RawMaterial material = compositionDish.getRawMaterial();
-			if(material.getStock() < compositionDish.getQuantity()) return false;
+			if (material.getStock() < compositionDish.getQuantity())
+				return false;
 		}
-		
+
 		return true;
 	}
 
 	public void decrementStock() throws NegativeStockException {
 		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
 		composition.addAll(CompositionDish.finder.compositionOfDish(this));
-		
+
 		for (CompositionDish compositionDish : composition) {
 			RawMaterial material = compositionDish.getRawMaterial();
-			if(material.getStock()-compositionDish.getQuantity() < 0) {
+			if (material.getStock() - compositionDish.getQuantity() < 0) {
 				throw new NegativeStockException("Stock for " + material.getName() + " can't be negative !");
-			}else {
+			} else {
 				material.decrementStock(compositionDish.getQuantity());
 			}
 		}
 	}
-	
+
 	public long getDish_id() {
 		return dish_id;
 	}
@@ -119,9 +121,5 @@ public class Dish extends Model{
 	public void setForChild(boolean forChild) {
 		this.forChild = forChild;
 	}
-
-	
-	
-	
 
 }

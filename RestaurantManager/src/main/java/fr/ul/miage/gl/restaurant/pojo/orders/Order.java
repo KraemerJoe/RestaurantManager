@@ -19,10 +19,10 @@ import io.ebean.Model;
 
 @Entity
 @Table(name = "\"ORDER\"")
-public class Order extends Model{
+public class Order extends Model {
 
 	public static OrderFinder find = new OrderFinder();
-	
+
 	@Id
 	protected long order_id;
 
@@ -36,8 +36,6 @@ public class Order extends Model{
 
 	@Enumerated(EnumType.STRING)
 	private EnumOrderStat statut;
-
-
 
 	public Order(SessionClient sessionClient) {
 		super();
@@ -97,8 +95,5 @@ public class Order extends Model{
 	public void setStatut(EnumOrderStat statut) {
 		this.statut = statut;
 	}
-
-	
-	
 
 }

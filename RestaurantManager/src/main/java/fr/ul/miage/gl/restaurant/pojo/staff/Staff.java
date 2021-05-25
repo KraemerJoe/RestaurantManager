@@ -8,16 +8,15 @@ import javax.persistence.Table;
 
 import fr.ul.miage.gl.restaurant.pojo.staff.enums.EnumRoles;
 import fr.ul.miage.gl.restaurant.pojo.staff.finders.StaffFinder;
-import fr.ul.miage.gl.restaurant.pojo.tables.finders.TableRestaurantFinder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 
 @Entity
 @Table(name = "\"STAFF\"")
-public class Staff extends Model{
+public class Staff extends Model {
 
 	public static final StaffFinder find = new StaffFinder();
-	
+
 	@Id
 	protected long staff_id;
 

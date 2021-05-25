@@ -15,6 +15,4 @@ public class OrderFinder extends Finder<Long, Order> {
 		return query().where().eq("session_client_id", id).findList();
 	}
 
-	
-
 }

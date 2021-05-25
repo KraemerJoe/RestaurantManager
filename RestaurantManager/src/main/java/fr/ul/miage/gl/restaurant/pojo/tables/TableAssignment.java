@@ -5,21 +5,22 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import fr.ul.miage.gl.restaurant.pojo.orders.finders.SessionClientFinder;
 import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
 import fr.ul.miage.gl.restaurant.pojo.tables.finders.TableAssignmentFinder;
 import io.ebean.Model;
 
 @Entity
 @Table(name = "\"TABLE_ASSIGNMENT\"")
-public class TableAssignment extends Model{
+public class TableAssignment extends Model {
 
 	public static TableAssignmentFinder find = new TableAssignmentFinder();
-	
-	@ManyToOne @JoinColumn(name = "staff_id")
+
+	@ManyToOne
+	@JoinColumn(name = "staff_id")
 	private Staff staff;
-	
-	@ManyToOne @JoinColumn(name = "table_id")
+
+	@ManyToOne
+	@JoinColumn(name = "table_id")
 	private TableRestaurant table;
 
 	public TableAssignment(Staff staff, TableRestaurant table) {
@@ -43,10 +44,5 @@ public class TableAssignment extends Model{
 	public void setTable(TableRestaurant table) {
 		this.table = table;
 	}
-	
-	
-
-	
-	
 
 }

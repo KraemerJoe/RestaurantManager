@@ -16,15 +16,14 @@ public class SessionClientFinder extends Finder<Long, SessionClient> {
 
 		return query().setMaxRows(1).where().eq("table_id", id).orderBy().desc("date_arrival").findOne();
 	}
-	
+
 	public SessionClient lastSessionByTableId(long id) {
 
 		return query().setMaxRows(1).where().eq("table_id", id).orderBy().desc("date_arrival").findOne();
 	}
-	
+
 	public List<SessionClient> allWhereTimeRelease() {
-        return query().where().isNotNull("date_release").findList();
-    }
-	
-	
+		return query().where().isNotNull("date_release").findList();
+	}
+
 }

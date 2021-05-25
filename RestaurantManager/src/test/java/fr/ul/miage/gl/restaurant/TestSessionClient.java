@@ -18,7 +18,6 @@ public class TestSessionClient {
 	public void testInsertNewClientSession() {
 
 		final TableRestaurant tableRestaurant = new TableRestaurant(EnumTableStat.FREE, 0, 1);
-		
 
 		DelegateEbeanServer mock = new DelegateEbeanServer();
 		mock.withPersisting(true);
@@ -27,10 +26,10 @@ public class TestSessionClient {
 
 			tableRestaurant.save();
 			SessionClient sessionClient = tableRestaurant.createSession();
-			
+
 			TableRestaurant foundTable = TableRestaurant.find.byId(tableRestaurant.getTable_id());
 			SessionClient foundSession = SessionClient.find.byId(sessionClient.getSession_client_id());
-			
+
 			assertEquals(foundTable.getTable_id(), tableRestaurant.getTable_id());
 			assertEquals(foundSession.getTable_id(), sessionClient.getTable_id());
 

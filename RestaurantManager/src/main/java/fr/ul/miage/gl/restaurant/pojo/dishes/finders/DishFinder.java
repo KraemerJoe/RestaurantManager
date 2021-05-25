@@ -18,7 +18,8 @@ public class DishFinder extends Finder<Long, Dish> {
 	}
 
 	public List<Dish> byCategoryEnoughStock(Category cat) {
-		return query().where().eq("category", cat).findList().stream().filter(d -> d.enoughRawMaterial()).collect(Collectors.toList());
+		return query().where().eq("category", cat).findList().stream().filter(d -> d.enoughRawMaterial())
+				.collect(Collectors.toList());
 	}
-	
+
 }

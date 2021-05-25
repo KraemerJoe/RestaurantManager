@@ -10,15 +10,15 @@ import io.ebean.annotation.NotNull;
 
 @Entity
 @Table(name = "\"RAW_MATERIAL\"")
-public class RawMaterial extends Model{
+public class RawMaterial extends Model {
 
 	public static RawMaterialFinder find = new RawMaterialFinder();
 	@Id
 	protected long raw_material_id;
-	
+
 	@NotNull
 	private String name;
-	
+
 	@NotNull
 	private long stock;
 
@@ -61,7 +61,5 @@ public class RawMaterial extends Model{
 		this.stock = stock - s;
 		this.save();
 	}
-
-	
 
 }

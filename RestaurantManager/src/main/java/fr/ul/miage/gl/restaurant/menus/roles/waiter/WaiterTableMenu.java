@@ -3,16 +3,13 @@ package fr.ul.miage.gl.restaurant.menus.roles.waiter;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.ul.miage.gl.restaurant.managers.SessionManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
 import fr.ul.miage.gl.restaurant.menus.Menu;
 import fr.ul.miage.gl.restaurant.menus.roles.WaiterMenu;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Category;
 import fr.ul.miage.gl.restaurant.pojo.dishes.Dish;
-import fr.ul.miage.gl.restaurant.pojo.dishes.RawMaterial;
 import fr.ul.miage.gl.restaurant.pojo.orders.Order;
 import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
-import fr.ul.miage.gl.restaurant.pojo.tables.TableAssignment;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
 import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
@@ -51,18 +48,20 @@ public class WaiterTableMenu extends Menu {
 			sendToCooker(table, list);
 			break;
 		case 2:
-			
+
 			boolean lunch = true;
 			int yesOrNo = MenuUtil.askForYesOrNo("Is that for the lunch ? ( no = dinner) ");
-			if(yesOrNo == 1) lunch = true;
-			else lunch = false;
-			
+			if (yesOrNo == 1)
+				lunch = true;
+			else
+				lunch = false;
+
 			boolean invoiced = table.createInvoice(lunch);
 			if (invoiced)
 				System.out.println("The invoice for this table has been edited, table is now set as to clean.");
 			else
 				System.err.println("The invoiced has not been created.");
-			
+
 			break;
 		case 3:
 			WaiterMenu.getInstance().show();
@@ -155,11 +154,12 @@ public class WaiterTableMenu extends Menu {
 
 		int compteur = 0;
 		for (Dish dish : dishs) {
-			System.out.println("[" + compteur + "] " + dish.getName() + " - " + dish.getPrice() + "$ | " + dish.getComposition());
+			System.out.println(
+					"[" + compteur + "] " + dish.getName() + " - " + dish.getPrice() + "$ | " + dish.getComposition());
 			compteur++;
 		}
 
-		if(dishs.size() <= 0) {
+		if (dishs.size() <= 0) {
 			System.err.println("No dish with enough stock in this category.");
 			return null;
 		}

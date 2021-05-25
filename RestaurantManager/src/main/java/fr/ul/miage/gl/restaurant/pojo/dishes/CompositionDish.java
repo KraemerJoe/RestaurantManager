@@ -10,17 +10,19 @@ import io.ebean.Model;
 
 @Entity
 @Table(name = "\"COMPOSITION_DISH\"")
-public class CompositionDish extends Model{
+public class CompositionDish extends Model {
 
 	public static CompositionDishFinder finder = new CompositionDishFinder();
-	
-	@ManyToOne @JoinColumn(name = "dish_id")
+
+	@ManyToOne
+	@JoinColumn(name = "dish_id")
 	private Dish dish;
-	
-	@ManyToOne @JoinColumn(name = "raw_material_id")
+
+	@ManyToOne
+	@JoinColumn(name = "raw_material_id")
 	private RawMaterial raw_material;
-	
-	private int quantity;	
+
+	private int quantity;
 
 	public CompositionDish(Dish dish, RawMaterial raw_material, int quantity) {
 		super();
@@ -52,9 +54,5 @@ public class CompositionDish extends Model{
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
-	
-	
-	
 
 }
