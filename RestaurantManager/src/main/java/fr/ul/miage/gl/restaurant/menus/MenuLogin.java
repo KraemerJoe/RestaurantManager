@@ -10,9 +10,9 @@ import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
 
 public class MenuLogin extends Menu {
-	
+
 	public static MenuLogin instance;
-	
+
 	public MenuLogin() {
 		super("Login");
 		instance = this;
@@ -29,21 +29,20 @@ public class MenuLogin extends Menu {
 		switch (choice) {
 		case 1:
 			System.out.println("You have chosen to login.");
-			
+
 			String login = MenuUtil.askForString("Enter your login");
 			String password = MenuUtil.askForString("Enter your password");
-			
-			Staff staff = Staff.find.credentials(login,password);
-			if(staff != null) {
+
+			Staff staff = Staff.find.credentials(login, password);
+			if (staff != null) {
 				MenuUtil.spacer(30);
 				SessionManager.getInstance().login(staff);
 				System.out.println("Welcome " + SessionManager.getInstance().getAccount().getLogin() + " !");
 				switchAfterLogin();
-			}	
-			else {
+			} else {
 				System.out.println("Your credentials are incorrect.");
 				MenuLogin.getInstance().show();
-			}	
+			}
 			break;
 		case 2:
 			System.out.println("You have chosen to quit.");
@@ -51,7 +50,7 @@ public class MenuLogin extends Menu {
 			break;
 		}
 	}
-	
+
 	private void switchAfterLogin() {
 		switch (SessionManager.getInstance().getAccount().getRole()) {
 		case WAITER:
@@ -75,15 +74,13 @@ public class MenuLogin extends Menu {
 	}
 
 	public static MenuLogin getInstance() {
-		if (instance == null) instance = new MenuLogin();
+		if (instance == null)
+			instance = new MenuLogin();
 		return instance;
 	}
 
 	public static void setInstance(MenuLogin instance) {
 		MenuLogin.instance = instance;
 	}
-	
-	
-	
 
 }

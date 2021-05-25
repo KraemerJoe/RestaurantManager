@@ -1,7 +1,5 @@
 package fr.ul.miage.gl.restaurant.pojo.orders;
 
-
-
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -16,7 +14,7 @@ import io.ebean.Model;
 
 @Entity
 @Table(name = "\"SESSION_CLIENT\"")
-public class SessionClient extends Model{
+public class SessionClient extends Model {
 
 	public static SessionClientFinder find = new SessionClientFinder();
 
@@ -38,13 +36,13 @@ public class SessionClient extends Model{
 		order.save();
 		return order;
 	}
-	
+
 	public SessionClient(TableRestaurant table_id, Date date_arrival) {
 		super();
 		this.table_id = table_id;
 		this.date_arrival = date_arrival;
 	}
-	
+
 	public SessionClient(long session_client_id, TableRestaurant table_id, Date date_arrival, Date date_release) {
 		super();
 		this.session_client_id = session_client_id;
@@ -52,13 +50,12 @@ public class SessionClient extends Model{
 		this.date_arrival = date_arrival;
 		this.date_release = date_release;
 	}
-	
+
 	public void terminate() {
 		date_release = new Date();
 		this.save();
 		table_id.setNeedToBeClean();
 	}
-	
 
 	public SessionClient(long session_client_id) {
 		super();
@@ -96,9 +93,5 @@ public class SessionClient extends Model{
 	public void setDate_release(Date date_release) {
 		this.date_release = date_release;
 	}
-
-
-
-
 
 }

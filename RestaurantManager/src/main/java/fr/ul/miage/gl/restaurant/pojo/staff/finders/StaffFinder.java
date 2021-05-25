@@ -16,9 +16,9 @@ public class StaffFinder extends Finder<Long, Staff> {
 
 		return query().where().eq("login", login).eq("password", password).findOne();
 	}
-	
-	public List<Staff> findWaiters(){
-        return query().where().eq("role", EnumRoles.WAITER).findList();
-    }
+
+	public List<Staff> findWaiters() {
+		return query().where().eq("role", EnumRoles.WAITER).findList();
+	}
 
 }

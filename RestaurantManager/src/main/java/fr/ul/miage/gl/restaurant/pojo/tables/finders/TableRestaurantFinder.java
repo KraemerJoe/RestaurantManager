@@ -25,9 +25,10 @@ public class TableRestaurantFinder extends Finder<Long, TableRestaurant> {
 	public List<TableRestaurant> tablesOrdered() {
 		return query().orderBy().asc("floor").orderBy().asc("table_id").findList();
 	}
-	
+
 	public List<TableRestaurant> tablesToClean() {
-		return query().where().eq("statut", EnumTableStat.TO_CLEAN).orderBy().asc("floor").orderBy().asc("table_id").findList();
+		return query().where().eq("statut", EnumTableStat.TO_CLEAN).orderBy().asc("floor").orderBy().asc("table_id")
+				.findList();
 	}
-	
+
 }

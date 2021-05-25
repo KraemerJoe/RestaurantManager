@@ -2,7 +2,6 @@ package fr.ul.miage.gl.restaurant.menus.roles;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import fr.ul.miage.gl.restaurant.managers.SessionManager;
 import fr.ul.miage.gl.restaurant.menus.ItemMenu;
@@ -12,9 +11,6 @@ import fr.ul.miage.gl.restaurant.pojo.orders.SessionOrder;
 import fr.ul.miage.gl.restaurant.pojo.orders.enums.EnumSessionOrderStat;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableAssignment;
 import fr.ul.miage.gl.restaurant.pojo.tables.TableRestaurant;
-import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
-import fr.ul.miage.gl.restaurant.pojo.tables.finders.TableAssignmentFinder;
-import fr.ul.miage.gl.restaurant.pojo.tables.finders.TableRestaurantFinder;
 import fr.ul.miage.gl.restaurant.util.MenuUtil;
 
 public class WaiterMenu extends Menu {
@@ -25,8 +21,8 @@ public class WaiterMenu extends Menu {
 		super("Waiter");
 		instance = this;
 	}
- 
-	@Override 
+
+	@Override
 	public void initMenuItems() {
 		itemList.add(new ItemMenu("Status of the restaurant", "See my tables"));
 		itemList.add(new ItemMenu("Select a table", "Manage a table (add a dish,invoice,...)"));
@@ -39,89 +35,97 @@ public class WaiterMenu extends Menu {
 		switch (choice) {
 		case 1:
 			ArrayList<TableAssignment> tables = new ArrayList<TableAssignment>();
-			
-			tables.addAll(TableAssignment.find.assignmentByStaffId(SessionManager.getInstance().getAccount().getStaff_id()));
+
+			tables.addAll(
+					TableAssignment.find.assignmentByStaffId(SessionManager.getInstance().getAccount().getStaff_id()));
 			for (TableAssignment ta : tables) {
-				System.out.println(ta.getTable().getColor() + " [TABLE #" + ta.getTable().getTable_id() + "] | Floor: " + ta.getTable().getFloor() + " | Seats: " + ta.getTable().getSeats_amount());
+				System.out.println(ta.getTable().getColor() + " [TABLE #" + ta.getTable().getTable_id() + "] | Floor: "
+						+ ta.getTable().getFloor() + " | Seats: " + ta.getTable().getSeats_amount());
 			}
-		break;
+			break;
 		case 2:
-			
+
 			ArrayList<TableAssignment> tables2 = new ArrayList<TableAssignment>();
 			ArrayList<TableRestaurant> tablesRes = new ArrayList<TableRestaurant>();
-			
-			tables2.addAll(TableAssignment.find.assignmentByStaffId(SessionManager.getInstance().getAccount().getStaff_id()));
-			
+
+			tables2.addAll(
+					TableAssignment.find.assignmentByStaffId(SessionManager.getInstance().getAccount().getStaff_id()));
+
 			for (TableAssignment ta : tables2) {
 				tablesRes.add(ta.getTable());
 			}
-			
+
 			int compteur2 = 0;
 			for (TableRestaurant ta : tablesRes) {
-				System.out.println("[" + compteur2 + "] " + ta.getColor() + " [TABLE #" + ta.getTable_id() + "] | Floor: " + ta.getFloor() + " | Seats: " + ta.getSeats_amount());
-				compteur2 ++;
+				System.out.println("[" + compteur2 + "] " + ta.getColor() + " [TABLE #" + ta.getTable_id()
+						+ "] | Floor: " + ta.getFloor() + " | Seats: " + ta.getSeats_amount());
+				compteur2++;
 			}
-			
-			if(tablesRes.size() <= 0) {
+
+			if (tablesRes.size() <= 0) {
 				System.out.println("There is no table for that.");
 				return;
 			}
-			
+
 			int tableToSelect = MenuUtil.askForPositiveInt("Which table do you want to manage ?");
-			
-			if(tablesRes.size() <= tableToSelect || tablesRes.get(tableToSelect) == null) {
+
+			if (tablesRes.size() <= tableToSelect || tablesRes.get(tableToSelect) == null) {
 				System.out.println("This table doesn't exist.");
 				return;
-			}else {
+			} else {
 				TableRestaurant table = tablesRes.get(tableToSelect);
 				WaiterTableMenu.getInstance().setTable(table);
 				WaiterTableMenu.getInstance().show();
 			}
-			
+
 			break;
 		case 3:
 			List<SessionOrder> list = new ArrayList<SessionOrder>();
 			list = SessionOrder.find.notCompletedOrders();
-			
+
 			for (SessionOrder session : list) {
-				System.out.println("[TABLE #" + session.getOrder().getSessionClient().getTable_id().getTable_id() + "] " + session.getDish().getName() + " | " + session.getStatut());
+				System.out.println("[TABLE #" + session.getOrder().getSessionClient().getTable_id().getTable_id() + "] "
+						+ session.getDish().getName() + " | " + session.getStatut());
 			}
 			break;
 		case 4:
 			List<SessionOrder> listToServ = new ArrayList<SessionOrder>();
 			listToServ = SessionOrder.find.notCompletedOrders();
-			
+
 			List<SessionOrder> listToServFiltered = new ArrayList<SessionOrder>();
-			
+
 			for (SessionOrder sessionOrder : listToServ) {
-				if(TableAssignment.find.isAssigned(sessionOrder.getOrder().getSessionClient().getTable_id(), SessionManager.getInstance().getAccount()) && sessionOrder.getStatut().equals(EnumSessionOrderStat.READY_TO_SERVE)) {
+				if (TableAssignment.find.isAssigned(sessionOrder.getOrder().getSessionClient().getTable_id(),
+						SessionManager.getInstance().getAccount())
+						&& sessionOrder.getStatut().equals(EnumSessionOrderStat.READY_TO_SERVE)) {
 					listToServFiltered.add(sessionOrder);
 				}
 			}
-			
-			
+
 			int c = 0;
 			for (SessionOrder sessionOrder : listToServFiltered) {
-				System.out.println("[" + c + "] " + "[TABLE #" + sessionOrder.getOrder().getSessionClient().getTable_id().getTable_id() + "] " + sessionOrder.getDish().getName() + " | " + sessionOrder.getStatut());
+				System.out.println("[" + c + "] " + "[TABLE #"
+						+ sessionOrder.getOrder().getSessionClient().getTable_id().getTable_id() + "] "
+						+ sessionOrder.getDish().getName() + " | " + sessionOrder.getStatut());
 				c++;
 			}
-			if(listToServFiltered.size() <= 0) {
+			if (listToServFiltered.size() <= 0) {
 				System.out.println("There is no dish to serve.");
 				return;
 			}
-			
+
 			int dishToServe = MenuUtil.askForPositiveInt("Which table do you want to collect ?");
-			
-			if(listToServFiltered.size() <= dishToServe || listToServFiltered.get(dishToServe) == null) {
+
+			if (listToServFiltered.size() <= dishToServe || listToServFiltered.get(dishToServe) == null) {
 				System.out.println("This table doesn't exist.");
 				return;
-			}else {
+			} else {
 				SessionOrder order = listToServFiltered.get(dishToServe);
 				order.served();
 				System.out.println("The dish has been marked has served !");
 			}
-			
-		break;
+
+			break;
 		}
 	}
 

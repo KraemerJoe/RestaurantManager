@@ -10,11 +10,11 @@ public class SessionManager {
 	public SessionManager() {
 		instance = this;
 	}
-	
+
 	public void login(Staff staff) {
 		this.account = staff;
 	}
-	
+
 	public void disconnect() {
 		this.account = null;
 	}

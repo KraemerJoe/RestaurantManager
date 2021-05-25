@@ -14,10 +14,10 @@ import io.ebean.Model;
 
 @Entity
 @Table(name = "\"INVOICE\"")
-public class Invoice extends Model{
+public class Invoice extends Model {
 
 	public static InvoiceFinder find = new InvoiceFinder();
-	
+
 	@Id
 	protected long invoice_id;
 
@@ -28,7 +28,7 @@ public class Invoice extends Model{
 	private double total_price;
 
 	private Date date;
-	
+
 	private boolean lunch;
 
 	public Invoice(SessionClient sessionClient, double total_price, boolean lunch) {
@@ -38,12 +38,12 @@ public class Invoice extends Model{
 		this.date = new Date();
 		this.lunch = lunch;
 	}
-	
+
 	public static void createInvoice(SessionClient sessionClient, double total_price, boolean lunch) {
 		Invoice invoice = new Invoice(sessionClient, total_price, lunch);
 		invoice.save();
 	}
-	
+
 	public static double totalOfReceipt(List<Invoice> invoices) {
 		double total = 0;
 		for (Invoice invoice : invoices) {
@@ -51,15 +51,15 @@ public class Invoice extends Model{
 		}
 		return total;
 	}
-	
+
 	public static double weeklyReceipt() {
 		return totalOfReceipt(find.ofTheWeek());
 	}
-	
+
 	public static double monthlyReceipt() {
 		return totalOfReceipt(find.ofTheMonth());
 	}
-	
+
 	public static double dailyReceipt() {
 		return totalOfReceipt(find.ofTheDay());
 	}
@@ -103,7 +103,5 @@ public class Invoice extends Model{
 	public void setLunch(boolean lunch) {
 		this.lunch = lunch;
 	}
-	
-	
 
 }

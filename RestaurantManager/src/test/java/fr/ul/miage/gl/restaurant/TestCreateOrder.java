@@ -42,9 +42,8 @@ public class TestCreateOrder {
 			table.save();
 			session.save();
 			Order order = session.createOrder();
-			
+
 			assertEquals(order.getSessionClient().getTable_id().getStatut(), EnumTableStat.BUSY);
-			
 
 		});
 	}
