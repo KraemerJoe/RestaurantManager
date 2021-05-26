@@ -1,5 +1,6 @@
 package fr.ul.miage.gl.restaurant;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -55,6 +56,44 @@ public class TestTableStats {
 		});
 	}
 
+	@Test
+	@DisplayName("Ensure reserve set table on RESERVE")
+	public void testReserveTable() {
+
+		final TableRestaurant table = new TableRestaurant(EnumTableStat.FREE, 0, 2);
+
+		DelegateEbeanServer mock = new DelegateEbeanServer();
+		mock.withPersisting(true);
+
+		MockiEbean.runWithMock(mock, () -> {
+
+			table.save();
+			table.reserve();
+
+			assertEquals(table.getStatut(), EnumTableStat.RESERVED);
+
+		});
+	}
+	
+	@Test
+	@DisplayName("Ensure reserve set table on RESERVE only if table is FREE")
+	public void testReserveTableOnlyIfFree() {
+
+		final TableRestaurant table = new TableRestaurant(EnumTableStat.TO_CLEAN, 0, 2);
+
+		DelegateEbeanServer mock = new DelegateEbeanServer();
+		mock.withPersisting(true);
+
+		MockiEbean.runWithMock(mock, () -> {
+
+			table.save();
+			table.reserve();
+
+			assertNotEquals(table.getStatut(), EnumTableStat.RESERVED);
+
+		});
+	}
+	
 	@Test
 	@DisplayName("Ensure clean method set table on FREE")
 	public void testCleanMethod() {

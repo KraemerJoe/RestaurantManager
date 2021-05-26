@@ -128,6 +128,15 @@ public class TableRestaurant extends Model {
 		return this.statut.equals(EnumTableStat.BUSY);
 	}
 
+	public void reserve() {
+		if(this.statut.equals(EnumTableStat.FREE)) {
+			setReserved();
+			save();
+		}else {
+			System.err.println("Cannot mark a table as reserved statut different of FREE.");
+		}
+	}
+	
 	public SessionClient createSession() {
 		SessionClient session = new SessionClient(this, new Date());
 		session.save();
@@ -189,5 +198,6 @@ public class TableRestaurant extends Model {
 	public void setSeats_amount(int seats_amount) {
 		this.seats_amount = seats_amount;
 	}
+
 
 }
