@@ -15,6 +15,10 @@ public class TableRestaurantFinder extends Finder<Long, TableRestaurant> {
 	public List<TableRestaurant> byStatut(EnumTableStat stat) {
 		return query().where().eq("statut", stat).findList();
 	}
+	
+	public List<TableRestaurant> free() {
+		return query().where().eq("statut", EnumTableStat.FREE).findList();
+	}
 
 	public List<TableRestaurant> freeOrReserved() {
 		return query().where()

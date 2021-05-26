@@ -29,6 +29,7 @@ public class WaiterMenu extends Menu {
 		itemList.add(new ItemMenu("Select a table", "Manage a table (add a dish,invoice,...)"));
 		itemList.add(new ItemMenu("Checkout", "See the evolution of the dishs of each table"));
 		itemList.add(new ItemMenu("Set a dish as served", "Mark a dish as served to the client"));
+		itemList.add(new ItemMenu("Reserve a table", "Mark a table as reserved"));
 		itemList.add(new ItemMenu("Menu of the day", "See menu of the day"));
 	}
 
@@ -129,6 +130,32 @@ public class WaiterMenu extends Menu {
 
 			break;
 		case 5:
+			
+			ArrayList<TableRestaurant> tablesR = new ArrayList<TableRestaurant>();
+			tablesR.addAll(TableRestaurant.find.free());
+			
+			int c1 = 0;
+			for (TableRestaurant t : tablesR) {
+				System.out.println("[" + c1 + "] " + "[TABLE #" + t.getTable_id() + "]" + " | " + t.getStatut());
+				c1++;
+			}
+			if (tablesR.size() <= 0) {
+				System.out.println("There is no table reserve.");
+				return;
+			}
+
+			int table = MenuUtil.askForPositiveInt("Which table do you want to reserve ?");
+
+			if (tablesR.size() <= table || tablesR.get(table) == null) {
+				System.out.println("This table doesn't exist.");
+				return;
+			} else {
+				TableRestaurant tableC = tablesR.get(table);
+				tableC.reserve();
+				System.out.println("The table has been marked has reserved !");
+			}
+			break;
+		case 6:
 			ArrayList<Dish> dishes = new ArrayList<Dish>();
 			dishes.addAll(Dish.find.menuOfTheDay());
 
