@@ -84,8 +84,7 @@ public class ButlerMenu extends Menu {
 						if (TableAssignment.find.isAssigned(tables.get(table), staff)) {
 							System.err.println("This table is already assigned to the waiter.");
 						} else {
-							TableAssignment assign = new TableAssignment(staff, tables.get(table));
-							assign.save();
+							TableAssignment.find.assign(tables.get(table), staff);
 							System.out.println("The table was added from the waiter !");
 						}
 

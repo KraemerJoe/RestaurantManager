@@ -1,4 +1,4 @@
-package fr.ul.miage.gl.restaurant;
+package fr.ul.miage.gl.restaurant.waiter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,32 +18,25 @@ import fr.ul.miage.gl.restaurant.pojo.tables.enums.EnumTableStat;
 import io.ebean.MockiEbean;
 import io.ebean.mocker.DelegateEbeanServer;
 
-public class TestCreateOrder {
+public class TestReserveTable {
 
 	@Test
-	@DisplayName("Ensure the creation of an order set the table on BUSY")
+	@DisplayName("Ensure the reserve function works")
 	public void testTableOfOrderIsBusy() {
 
-		final Category cat = new Category("Test");
-		final Dish dish = new Dish(cat, "Test", 10.0);
-		final RawMaterial raw = new RawMaterial("Test", 100);
-		final CompositionDish compo = new CompositionDish(dish, raw, 10000);
+	
 		final TableRestaurant table = new TableRestaurant(EnumTableStat.FREE, 0, 2);
-		final SessionClient session = new SessionClient(table, new Date());
+
 		DelegateEbeanServer mock = new DelegateEbeanServer();
 		mock.withPersisting(true);
 
 		MockiEbean.runWithMock(mock, () -> {
 
-			cat.save();
-			dish.save();
-			raw.save();
-			compo.save();
+			
 			table.save();
-			session.save();
-			Order order = session.createOrder();
-
-			assertEquals(order.getSessionClient().getTable_id().getStatut(), EnumTableStat.BUSY);
+			assertEquals(table.getStatut(), EnumTableStat.FREE);
+			table.reserve();
+			assertEquals(table.getStatut(), EnumTableStat.RESERVED);
 
 		});
 	}

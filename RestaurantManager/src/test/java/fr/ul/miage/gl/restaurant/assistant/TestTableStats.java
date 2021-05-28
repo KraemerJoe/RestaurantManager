@@ -1,4 +1,4 @@
-package fr.ul.miage.gl.restaurant;
+package fr.ul.miage.gl.restaurant.assistant;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
