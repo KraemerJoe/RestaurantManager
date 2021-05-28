@@ -1,4 +1,4 @@
-package fr.ul.miage.gl.restaurant;
+package fr.ul.miage.gl.restaurant.waiter;
 
 import static org.junit.Assert.assertEquals;
 

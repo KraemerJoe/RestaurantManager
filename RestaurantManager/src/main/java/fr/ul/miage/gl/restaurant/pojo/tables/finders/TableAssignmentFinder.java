@@ -27,6 +27,15 @@ public class TableAssignmentFinder extends Finder<Long, TableAssignment> {
 		return query().where().eq("table", table).eq("staff", staff).findOne() != null;
 	}
 
+	public void assign(TableRestaurant table, Staff staff) {
+		if(isAssigned(table, staff)) {
+			System.err.println("Can't assign a table that is already assigned to the same staff !");
+		}else {
+			TableAssignment assign = new TableAssignment(staff, table);
+			assign.save();
+		}
+	}
+	
 	public int unassign(TableRestaurant table, Staff staff) {
 		return query().where().eq("table", table).eq("staff", staff).delete();
 	}
