@@ -50,11 +50,13 @@ public class SessionOrder extends Model {
 	@Enumerated(EnumType.STRING)
 	private EnumSessionOrderStat statut;
 
+	// le plat est pret a etre servit
 	public void setReadyToServe() {
 		this.date_completion = new Date();
 		statut = EnumSessionOrderStat.READY_TO_SERVE;
 	}
 
+	// le plat est servit
 	public void served() {
 		statut = EnumSessionOrderStat.SERVED;
 		save();

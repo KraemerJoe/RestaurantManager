@@ -26,6 +26,7 @@ public class ButlerMenu extends Menu {
 	@Override
 	public void executeChoice(int choice) {
 		switch (choice) {
+		// Assign a table", "Set tables assigned to waiters
 		case 1:
 			ArrayList<Staff> waiters = new ArrayList<Staff>();
 			waiters.addAll(Staff.find.findWaiters());

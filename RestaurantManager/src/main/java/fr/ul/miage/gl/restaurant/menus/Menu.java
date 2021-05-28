@@ -8,8 +8,8 @@ import fr.ul.miage.gl.restaurant.managers.SessionManager;
 
 public abstract class Menu implements InterfaceMenu {
 
-	protected String name;
-	protected ArrayList<ItemMenu> itemList = new ArrayList<ItemMenu>();
+	protected String name; // nom du menu
+	protected ArrayList<ItemMenu> itemList = new ArrayList<ItemMenu>(); // choix du menu
 	public static Menu instance;
 
 	public Menu(String name) {
@@ -18,6 +18,9 @@ public abstract class Menu implements InterfaceMenu {
 		Menu.instance = this;
 	}
 
+	/*
+	 * Fonction d'affichage de tous les menus
+	 */
 	public void show() {
 		title();
 		int choice = -1;
@@ -40,6 +43,9 @@ public abstract class Menu implements InterfaceMenu {
 			}
 		} while (choice <= 0 || choice >= (itemList.size() + ((this instanceof MenuLogin) ? 2 : 3)));
 		if (!(this instanceof MenuLogin) && choice == itemList.size() + 1) {
+			/*
+			 * Si on est pas au login on propose un menu pour se déconnecter
+			 */
 			SessionManager.getInstance().disconnect();
 			System.out.println("Disconnected.");
 			MenuLogin.getInstance().show();

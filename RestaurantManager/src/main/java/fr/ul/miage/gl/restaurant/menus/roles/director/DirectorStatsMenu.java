@@ -23,6 +23,9 @@ public class DirectorStatsMenu extends Menu {
 		instance = this;
 	}
 
+	/*
+	 * Parties du sous menu du directeur concernant les stats
+	 */
 	@Override
 	public void initMenuItems() {
 		itemList.add(new ItemMenu("Stats of receipts", "See daily, weekly and monthly receipt"));
@@ -36,6 +39,7 @@ public class DirectorStatsMenu extends Menu {
 	public void executeChoice(int choice) {
 
 		switch (choice) {
+		//Stats of receipts", "See daily, weekly and monthly receipt
 		case 1:
 			/*
 			 * Daily
@@ -53,6 +57,7 @@ public class DirectorStatsMenu extends Menu {
 			System.out.println("> Receipt of the month");
 			System.out.println("  > " + Invoice.monthlyReceipt() + "$");
 			break;
+		//Stats rotation time", "See the average rotation time
 		case 2:
 			ArrayList<Long> sessions = new ArrayList<Long>();
 
@@ -74,6 +79,7 @@ public class DirectorStatsMenu extends Menu {
 							- TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(divided))));
 
 			break;
+		// Stats most successful dishes (Top 5)", "See the best sellers
 		case 3:
 			System.out.println("TOP #5 - BEST SELLERS");
 			Map<String, Long> result = SessionOrder.find.all().stream()
@@ -85,6 +91,7 @@ public class DirectorStatsMenu extends Menu {
 			result.forEach((key, value) -> System.out.println(" > " + key + ": " + value));
 
 			break;
+		// Is Lunch or Dinner the best ?($$$)", "See if the profit is at lunch or dinner
 		case 4:
 			System.out.println("Is Lunch or Dinner the best ?($$$)");
 			double totalLunch = 0;
@@ -106,6 +113,7 @@ public class DirectorStatsMenu extends Menu {
 			}
 
 			break;
+		// Back to director menu", "Return to main director menu
 		case 5:
 			DirectorMenu.getInstance().show();
 			break;

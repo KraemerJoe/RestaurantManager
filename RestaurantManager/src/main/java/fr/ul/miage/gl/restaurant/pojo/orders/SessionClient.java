@@ -29,6 +29,7 @@ public class SessionClient extends Model {
 
 	private Date date_release;
 
+	//permet d'initier une commande + mettre table en occupée
 	public Order createOrder() {
 		table_id.setBusy();
 		table_id.save();
@@ -51,6 +52,7 @@ public class SessionClient extends Model {
 		this.date_release = date_release;
 	}
 
+	//termine la commande, met la table en to_be_cleaned
 	public void terminate() {
 		date_release = new Date();
 		this.save();

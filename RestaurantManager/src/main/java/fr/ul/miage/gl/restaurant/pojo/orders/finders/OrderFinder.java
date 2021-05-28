@@ -11,6 +11,7 @@ public class OrderFinder extends Finder<Long, Order> {
 		super(Order.class);
 	}
 
+	// retourne les commandes d'une table
 	public List<Order> getOrdersOfSession(long id) {
 		return query().where().eq("session_client_id", id).findList();
 	}

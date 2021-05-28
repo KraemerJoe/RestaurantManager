@@ -67,6 +67,7 @@ public class TableRestaurant extends Model {
 		return false;
 	}
 
+	// génère la facture d'une table
 	public boolean createInvoice(boolean lunch) {
 		SessionClient session = findCurrentSession();
 		if (session == null || !session.getTable_id().isBusy()) {
@@ -128,6 +129,7 @@ public class TableRestaurant extends Model {
 		return this.statut.equals(EnumTableStat.BUSY);
 	}
 
+	// set une table en réservée
 	public void reserve() {
 		if(this.statut.equals(EnumTableStat.FREE)) {
 			setReserved();
@@ -137,16 +139,19 @@ public class TableRestaurant extends Model {
 		}
 	}
 	
+	// créer une session pour la table
 	public SessionClient createSession() {
 		SessionClient session = new SessionClient(this, new Date());
 		session.save();
 		return session;
 	}
 
+	// retourne la dernière session d'une table
 	public SessionClient findCurrentSession() {
 		return SessionClient.find.lastSessionByTableId(this);
 	}
 
+	//retourne la couleur adéquate au statut
 	public String getColor() {
 		switch (statut) {
 		case BUSY:

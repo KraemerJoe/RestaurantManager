@@ -45,6 +45,7 @@ public class Order extends Model {
 		this.statut = EnumOrderStat.PENDING;
 	}
 
+	// permet d'ajouter des plats à une commande
 	public void populateWithDish(ArrayList<Dish> what) {
 		for (Dish dish : what) {
 			SessionOrder sessionOrder = new SessionOrder(dish, this, dish.isForChild());

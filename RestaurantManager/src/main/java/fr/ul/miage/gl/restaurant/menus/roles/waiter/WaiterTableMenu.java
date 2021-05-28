@@ -34,6 +34,7 @@ public class WaiterTableMenu extends Menu {
 	@Override
 	public void executeChoice(int choice) {
 		switch (choice) {
+		// Add a dish", "Add a new dish to the table
 		case 1:
 			if (table == null)
 				return;
@@ -47,6 +48,7 @@ public class WaiterTableMenu extends Menu {
 			}
 			sendToCooker(table, list);
 			break;
+		// Create an invoice", "Cashing out a customer
 		case 2:
 
 			boolean lunch = true;
@@ -63,6 +65,7 @@ public class WaiterTableMenu extends Menu {
 				System.err.println("The invoiced has not been created.");
 
 			break;
+		// Back to waiter menu", "Return to main waiter menu
 		case 3:
 			WaiterMenu.getInstance().show();
 			break;

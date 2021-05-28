@@ -18,6 +18,7 @@ public class InvoiceFinder extends Finder<Long, Invoice> {
 		super(Invoice.class);
 	}
 
+	// retournes les factures du jour
 	public List<Invoice> ofTheDay() {
 
 		Calendar date = new GregorianCalendar();
@@ -33,6 +34,7 @@ public class InvoiceFinder extends Finder<Long, Invoice> {
 		return query().where().lt("date", tmrw.getTime()).ge("date", date.getTime()).findList();
 	}
 
+	//retourne les facture de la semaine
 	public List<Invoice> ofTheWeek() {
 		LocalDate monday = today;
 		while (monday.getDayOfWeek() != DayOfWeek.MONDAY) {
@@ -47,6 +49,7 @@ public class InvoiceFinder extends Finder<Long, Invoice> {
 		return query().where().le("date", sunday).ge("date", monday).findList();
 	}
 
+	//retourne les facture du mois en cours
 	public List<Invoice> ofTheMonth() {
 		LocalDate firstDay = today.with(TemporalAdjusters.firstDayOfMonth());
 		LocalDate lastDay = today.with(TemporalAdjusters.lastDayOfMonth());

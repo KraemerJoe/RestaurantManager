@@ -4,6 +4,10 @@ import fr.ul.miage.gl.restaurant.pojo.staff.Staff;
 
 public class SessionManager {
 
+	/*
+	 * Cette classe permet la mise en mémoire du compte et du membre du staff connecté
+	 */
+	
 	public static SessionManager instance;
 	private Staff account;
 

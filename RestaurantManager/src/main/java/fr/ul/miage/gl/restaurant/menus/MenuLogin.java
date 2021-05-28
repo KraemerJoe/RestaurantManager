@@ -51,6 +51,9 @@ public class MenuLogin extends Menu {
 		}
 	}
 
+	/*
+	 * Apres le login on affiche automatiquement le menu correspondant aux permissions du role
+	 */
 	private void switchAfterLogin() {
 		switch (SessionManager.getInstance().getAccount().getRole()) {
 		case WAITER:
