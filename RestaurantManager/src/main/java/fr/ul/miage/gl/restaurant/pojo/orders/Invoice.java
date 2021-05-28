@@ -39,11 +39,13 @@ public class Invoice extends Model {
 		this.lunch = lunch;
 	}
 
+	// fonction pour sauvegarder une facture
 	public static void createInvoice(SessionClient sessionClient, double total_price, boolean lunch) {
 		Invoice invoice = new Invoice(sessionClient, total_price, lunch);
 		invoice.save();
 	}
 
+	// calcul le totale de la facture
 	public static double totalOfReceipt(List<Invoice> invoices) {
 		double total = 0;
 		for (Invoice invoice : invoices) {

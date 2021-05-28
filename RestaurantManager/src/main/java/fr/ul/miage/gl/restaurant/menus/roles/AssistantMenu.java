@@ -29,6 +29,7 @@ public class AssistantMenu extends Menu {
 	@Override
 	public void executeChoice(int choice) {
 		switch (choice) {
+		// Room Occupation", "See the occupation of the room
 		case 1:
 			List<TableRestaurant> listTable = new ArrayList<TableRestaurant>();
 			listTable = TableRestaurant.find.tablesOrdered();
@@ -38,6 +39,7 @@ public class AssistantMenu extends Menu {
 			}
 
 			break;
+		// Tables state", "See if tables are clean or not
 		case 2:
 			List<TableRestaurant> listTableClean = new ArrayList<TableRestaurant>();
 			listTableClean = TableRestaurant.find.tablesOrdered();
@@ -53,6 +55,7 @@ public class AssistantMenu extends Menu {
 			}
 
 			break;
+		// Tables that got available", "See which table just got available
 		case 3:
 			List<TableRestaurant> listTableAvailable = new ArrayList<TableRestaurant>();
 			listTableAvailable = TableRestaurant.find.tablesToClean();
@@ -66,6 +69,7 @@ public class AssistantMenu extends Menu {
 			}
 
 			break;
+		// Set a table as clean", "Set a table is now clean and ready for another client
 		case 4:
 			List<TableRestaurant> listTableToClean = new ArrayList<TableRestaurant>();
 			listTableToClean = TableRestaurant.find.tablesToClean();

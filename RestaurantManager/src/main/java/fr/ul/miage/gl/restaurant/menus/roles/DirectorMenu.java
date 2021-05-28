@@ -37,6 +37,7 @@ public class DirectorMenu extends Menu {
 	@Override
 	public void executeChoice(int choice) {
 		switch (choice) {
+		// Stocks", "See all current stocks
 		case 1:
 			ArrayList<RawMaterial> materials = new ArrayList<RawMaterial>();
 			materials.addAll(RawMaterial.find.all());
@@ -45,6 +46,7 @@ public class DirectorMenu extends Menu {
 			}
 
 			break;
+		// Manage Stocks", "Edit stocks
 		case 2:
 			
 			int compteur3 = 0;
@@ -77,6 +79,7 @@ public class DirectorMenu extends Menu {
 			}
 			
 			break;
+		// Details of staff
 		case 3:
 			ArrayList<Staff> staffs = new ArrayList<Staff>();
 			staffs.addAll(Staff.find.all());
@@ -107,6 +110,7 @@ public class DirectorMenu extends Menu {
 
 			}
 			break;
+		// Create a staff", "Add a new staff to the team
 		case 4:
 			String name = MenuUtil.askForString("Enter the name of the staff.");
 			String surname = MenuUtil.askForString("Enter the surname of the staff.");
@@ -133,6 +137,7 @@ public class DirectorMenu extends Menu {
 			} else {
 				System.err.println("The creation was cancelled.");
 			}
+		// Edit a staff", "Edit role of a staff
 		case 5:
 			ArrayList<Staff> staffs1 = new ArrayList<Staff>();
 			staffs1.addAll(Staff.find.all());
@@ -173,9 +178,11 @@ public class DirectorMenu extends Menu {
 			}
 
 			break;
+		// Stats", "Access to director's stats
 		case 6:
 			DirectorStatsMenu.getInstance().show();
 			break;
+		// Menu of the day", "Edit menu of the day
 		case 7:
 			ArrayList<Dish> dishes = new ArrayList<Dish>();
 			dishes.addAll(Dish.find.all());

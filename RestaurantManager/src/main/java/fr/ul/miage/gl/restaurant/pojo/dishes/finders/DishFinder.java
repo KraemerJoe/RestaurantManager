@@ -13,14 +13,17 @@ public class DishFinder extends Finder<Long, Dish> {
 		super(Dish.class);
 	}
 
+	// retrouve tous les plats d'une catégorie
 	public List<Dish> byCategory(Category cat) {
 		return query().where().eq("category", cat).findList();
 	}
 	
+	// retrouves tous les plats du menu du jour
 	public List<Dish> menuOfTheDay() {
 		return query().where().eq("menu", true).findList();
 	}
 
+	// retrouve toutes les catégories ou il y a assez de stock pour faire un plat minimum
 	public List<Dish> byCategoryEnoughStock(Category cat) {
 		return query().where().eq("category", cat).findList().stream().filter(d -> d.enoughRawMaterial())
 				.collect(Collectors.toList());

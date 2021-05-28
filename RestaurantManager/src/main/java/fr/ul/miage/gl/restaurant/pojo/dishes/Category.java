@@ -36,6 +36,9 @@ public class Category extends Model {
 		this.name = name;
 	}
 
+	/*
+	 * Fonction qui demande a l'utilisateur de choisir une catégorie
+	 */
 	public static Category askForACategory() {
 		List<Category> categories = Category.find.all();
 

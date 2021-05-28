@@ -2,8 +2,9 @@ package fr.ul.miage.gl.restaurant.menus;
 
 public class ItemMenu {
 
-	private String description;
-	private String detail;
+	
+	private String description; // nom du choix
+	private String detail; // detail du choix
 
 	public ItemMenu(String description, String detail) {
 		super();
