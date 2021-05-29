@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +23,43 @@ import io.ebean.mocker.DelegateEbeanServer;
 
 public class TestTableStats {
 
+	@Test
+	@DisplayName("")
+	public void testTablesClean() {
+
+		final TableRestaurant table = new TableRestaurant(EnumTableStat.TO_CLEAN, 0, 2);
+		final TableRestaurant table1 = new TableRestaurant(EnumTableStat.TO_CLEAN, 0, 2);
+		final TableRestaurant table2 = new TableRestaurant(EnumTableStat.TO_CLEAN, 0, 2);
+		final TableRestaurant table3 = new TableRestaurant(EnumTableStat.TO_CLEAN, 0, 2);
+		final TableRestaurant table_more = new TableRestaurant(EnumTableStat.BUSY, 0, 2);
+
+		
+		DelegateEbeanServer mock = new DelegateEbeanServer();
+		mock.withPersisting(true);
+
+		MockiEbean.runWithMock(mock, () -> {
+
+			table.save();
+			table1.save();
+			table2.save();
+			table3.save();
+			table_more.setBusy();
+			table_more.save();
+			
+			List<TableRestaurant> listTableClean = new ArrayList<TableRestaurant>();
+			listTableClean = TableRestaurant.find.tablesToClean();
+			String tableState = "";
+			for (TableRestaurant t : listTableClean) {
+				assertEquals(table.getStatut(), EnumTableStat.TO_CLEAN);
+			}
+			
+
+
+		});
+		
+		
+	}
+	
 	@Test
 	@DisplayName("Ensure a table is set as TO_CLEAN after order is terminated")
 	public void testToCleanIfTerminated() {
@@ -52,7 +90,7 @@ public class TestTableStats {
 			session.terminate();
 
 			assertEquals(table.getStatut(), EnumTableStat.TO_CLEAN);
-
+			
 		});
 	}
 
@@ -74,7 +112,9 @@ public class TestTableStats {
 
 		});
 	}
+
 	
+
 	@Test
 	@DisplayName("Ensure reserve set table on RESERVE only if table is FREE")
 	public void testReserveTableOnlyIfFree() {
@@ -93,7 +133,7 @@ public class TestTableStats {
 
 		});
 	}
-	
+
 	@Test
 	@DisplayName("Ensure clean method set table on FREE")
 	public void testCleanMethod() {
