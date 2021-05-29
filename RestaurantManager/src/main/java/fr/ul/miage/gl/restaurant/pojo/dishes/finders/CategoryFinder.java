@@ -9,4 +9,7 @@ public class CategoryFinder extends Finder<Long, Category> {
 		super(Category.class);
 	}
 
+	public Category getByName(String str) {
+		return query().where().eq("name", str).findOne();
+	}
 }
