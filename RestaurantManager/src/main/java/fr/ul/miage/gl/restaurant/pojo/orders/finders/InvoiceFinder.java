@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import fr.ul.miage.gl.restaurant.pojo.orders.Invoice;
+import fr.ul.miage.gl.restaurant.pojo.orders.SessionClient;
 import io.ebean.Finder;
 
 public class InvoiceFinder extends Finder<Long, Invoice> {
@@ -16,6 +17,11 @@ public class InvoiceFinder extends Finder<Long, Invoice> {
 
 	public InvoiceFinder() {
 		super(Invoice.class);
+	}
+	
+	//retourne les facture du mois en cours
+	public Invoice getBySessionClient(SessionClient sessionClient) {
+		return query().where().eq("sessionClient", sessionClient).findOne();
 	}
 
 	// retournes les factures du jour
