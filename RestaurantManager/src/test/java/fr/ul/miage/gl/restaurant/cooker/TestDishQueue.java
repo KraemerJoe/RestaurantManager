@@ -40,6 +40,12 @@ public class TestDishQueue {
 
 		MockiEbean.runWithMock(mock, () -> {
 
+			List<SessionOrder> orders = new ArrayList<SessionOrder>();
+			orders = SessionOrder.find.pendingOrdersWithChildFirst();
+			for (SessionOrder sessionOrder : orders) {
+				sessionOrder.setReadyToServe();
+				sessionOrder.save();
+			}
 			cat.save();
 			dish.save();
 			dish2.save();
@@ -53,7 +59,7 @@ public class TestDishQueue {
 			
 			order.populateWithDish(what);
 			
-			List<SessionOrder> orders = new ArrayList<SessionOrder>();
+
 			orders = SessionOrder.find.pendingOrdersWithChildFirst();
 			
 			assertEquals(orders.size(), 1);

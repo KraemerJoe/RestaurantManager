@@ -20,7 +20,7 @@ public class TestMenuOfTheDay {
 		final Dish dish = new Dish(cat, "test", 2.0);
 
 		DelegateEbeanServer mock = new DelegateEbeanServer();
-		mock.withPersisting(true);
+		mock.withPersisting(false);
 
 		MockiEbean.runWithMock(mock, () -> {
 
@@ -41,7 +41,7 @@ public class TestMenuOfTheDay {
 		final Dish dish = new Dish(cat, "test", 2.0);
 
 		DelegateEbeanServer mock = new DelegateEbeanServer();
-		mock.withPersisting(true);
+		mock.withPersisting(false);
 
 		MockiEbean.runWithMock(mock, () -> {
 
@@ -53,6 +53,9 @@ public class TestMenuOfTheDay {
 			assertEquals(dish.isMenuOfTheDay(), true);
 			dish.setMenuOfTheDay(false);
 			assertEquals(dish.isMenuOfTheDay(), false);
+			
+			dish.delete();
+			
 		});
 	}
 
