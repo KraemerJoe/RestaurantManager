@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class PreparationTimeDish {
 
+	/*
+	 * Classe permettant le calcul de statistique sur le temps de préparation d'un plat
+	 */
 	private Dish dish;
 	private ArrayList<Long> timeDish = new ArrayList<Long>();
 

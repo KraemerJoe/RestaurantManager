@@ -35,6 +35,7 @@ public class CookerMenu extends Menu {
 	@Override
 	public void executeChoice(int choice) {
 		switch (choice) {
+		// Incoming orders", "See incoming orders
 		case 1:
 			List<SessionOrder> orders = new ArrayList<SessionOrder>();
 			orders = SessionOrder.find.pendingOrdersWithChildFirst();
@@ -46,6 +47,7 @@ public class CookerMenu extends Menu {
 						+ sessionOrder.getDish().getName() + " | " + sessionOrder.getDate_creation());
 			}
 			break;
+		// Ready to be served", "Set a dish to ready to be served
 		case 2:
 			List<SessionOrder> ordersPending = new ArrayList<SessionOrder>();
 			ordersPending = SessionOrder.find.pendingOrdersWithChildFirst();
@@ -73,6 +75,7 @@ public class CookerMenu extends Menu {
 				System.out.println("Waiters has been informed the dish is ready to be served !");
 			}
 			break;
+		// Create a new category", "Add a new category of dish to the menu
 		case 3:
 			String category = MenuUtil.askForOneWordString("Enter the new category name, one word only, no space.")
 					.toUpperCase();
@@ -86,6 +89,7 @@ public class CookerMenu extends Menu {
 				System.err.println("The creation of the category was cancelled.");
 			}
 			break;
+		// Create a new dish", "Use raw materials to create a new dish
 		case 4:
 			System.out.println("To create a new dish, choose the category of the dish.");
 			Category cat = Category.askForACategory();
@@ -164,6 +168,7 @@ public class CookerMenu extends Menu {
 				System.err.println("The creation of the dish was cancelled.");
 			}
 			break;
+		// Average preparation time", "Consult the average preparation time of a dish
 		case 5:
 			ArrayList<PreparationTimeDish> preparations = new ArrayList<PreparationTimeDish>();
 

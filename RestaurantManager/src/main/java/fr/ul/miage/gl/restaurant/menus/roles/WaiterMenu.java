@@ -36,6 +36,7 @@ public class WaiterMenu extends Menu {
 	@Override
 	public void executeChoice(int choice) {
 		switch (choice) {
+		// Status of the restaurant", "See my tables
 		case 1:
 			ArrayList<TableAssignment> tables = new ArrayList<TableAssignment>();
 
@@ -46,6 +47,7 @@ public class WaiterMenu extends Menu {
 						+ ta.getTable().getFloor() + " | Seats: " + ta.getTable().getSeats_amount());
 			}
 			break;
+		// Select a table", "Manage a table (add a dish,invoice,...)
 		case 2:
 
 			ArrayList<TableAssignment> tables2 = new ArrayList<TableAssignment>();
@@ -82,6 +84,7 @@ public class WaiterMenu extends Menu {
 			}
 
 			break;
+		// Checkout", "See the evolution of the dishs of each table"
 		case 3:
 			List<SessionOrder> list = new ArrayList<SessionOrder>();
 			list = SessionOrder.find.notCompletedOrders();
@@ -91,6 +94,7 @@ public class WaiterMenu extends Menu {
 						+ session.getDish().getName() + " | " + session.getStatut());
 			}
 			break;
+		// Set a dish as served", "Mark a dish as served to the client
 		case 4:
 			List<SessionOrder> listToServ = new ArrayList<SessionOrder>();
 			listToServ = SessionOrder.find.notCompletedOrders();
@@ -129,6 +133,7 @@ public class WaiterMenu extends Menu {
 			}
 
 			break;
+		// Reserve a table", "Mark a table as reserved
 		case 5:
 			
 			ArrayList<TableRestaurant> tablesR = new ArrayList<TableRestaurant>();
@@ -155,6 +160,7 @@ public class WaiterMenu extends Menu {
 				System.out.println("The table has been marked has reserved !");
 			}
 			break;
+		// Menu of the day", "See menu of the day
 		case 6:
 			ArrayList<Dish> dishes = new ArrayList<Dish>();
 			dishes.addAll(Dish.find.menuOfTheDay());

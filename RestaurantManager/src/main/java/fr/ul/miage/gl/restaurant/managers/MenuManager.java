@@ -14,6 +14,13 @@ import fr.ul.miage.gl.restaurant.menus.roles.waiter.WaiterTableMenu;
 
 public class MenuManager {
 
+	/*
+	 * Cette classe permet la gestion des menus,
+	 * nous avons opté pour une solution simple et efficace:
+	 * - nous enregistrons chaque menu ( initMenus )
+	 * - chaque menu peut être afficher via show
+	 */
+	
 	public static MenuManager instance;
 	public ArrayList<Menu> menus = new ArrayList<Menu>();
 
@@ -23,12 +30,18 @@ public class MenuManager {
 		initMenusItems();
 	}
 
+	/*
+	 * Mise en mémoire de chaque option de chaque menu
+	 */
 	private void initMenusItems() {
 		for (Menu menu : menus) {
 			menu.initMenuItems();
 		}
 	}
 
+	/*
+	 * Enregistrement des menus
+	 */
 	public void initMenus() {
 		menus.add(new MenuLogin());
 		menus.add(new AssistantMenu());

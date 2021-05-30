@@ -30,6 +30,7 @@ public class RawMaterial extends Model {
 		this.stock = stock;
 	}
 	
+	//set le nouveau stock
 	public void setNewStock(long stock) throws NegativeStockException, StockOverFlowException {
 		if(stock > Long.MAX_VALUE) {
 			throw new StockOverFlowException("Stocks cannot be larger than Long.MAX_VALUE");
@@ -42,6 +43,7 @@ public class RawMaterial extends Model {
 		}
 	}
 	
+	//decremente le nombre indiqué au stock
 	public void decrementStock(long s) throws NegativeStockException, StockOverFlowException {
 		setNewStock(stock - s);
 	}

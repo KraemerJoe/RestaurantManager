@@ -12,6 +12,7 @@ public class CompositionDishFinder extends Finder<Long, CompositionDish> {
 		super(CompositionDish.class);
 	}
 
+	//permet de retourner la liste de composition d'un plat
 	public List<CompositionDish> compositionOfDish(Dish dish) {
 		return query().where().eq("dish", dish).findList();
 	}

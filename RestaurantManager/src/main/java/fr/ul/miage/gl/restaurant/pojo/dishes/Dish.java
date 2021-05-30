@@ -48,6 +48,7 @@ public class Dish extends Model {
 		this.price = price;
 	}
 
+	// retourne un string propre de la composition d'un plat
 	public String getComposition() {
 		String compo = "(";
 		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
@@ -58,6 +59,7 @@ public class Dish extends Model {
 		return (compo + ")").replace(" | )", ")");
 	}
 
+	// vérifie qu'il y a assez d'ingrédient en stock pour faire ce plat
 	public boolean enoughRawMaterial() {
 		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
 		composition.addAll(CompositionDish.finder.compositionOfDish(this));
@@ -71,6 +73,7 @@ public class Dish extends Model {
 		return true;
 	}
 
+	// enleve le stock nécessaire a faire ce plat en fonction de la composition du plat
 	public void decrementStock() throws NegativeStockException, StockOverFlowException {
 		ArrayList<CompositionDish> composition = new ArrayList<CompositionDish>();
 		composition.addAll(CompositionDish.finder.compositionOfDish(this));
