@@ -31,7 +31,7 @@ public class MenuUtil {
 	public static double askForPositiveDouble(String question) {
 
 		int choice = -1;
-		while (choice == -1 && choice <= 0) {
+		while (choice == -1 || choice <= 0) {
 			try {
 				System.out.println(question);
 				Scanner input = new Scanner(System.in);
@@ -46,7 +46,7 @@ public class MenuUtil {
 	public static int askForPositiveInt(String question) {
 
 		int choice = -1;
-		while (choice == -1 && choice <= 0) {
+		while (choice == -1 || choice < 0) {
 			try {
 				System.out.println(question);
 				Scanner input = new Scanner(System.in);
