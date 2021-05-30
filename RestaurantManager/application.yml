@@ -1,0 +1,5 @@
+datasource:
+  db:
+    username: m1user1_11
+    password: m1user1_11
+    url: jdbc:postgresql://plg-broker.ad.univ-lorraine.fr:5432/GL_Restaurant_G10
